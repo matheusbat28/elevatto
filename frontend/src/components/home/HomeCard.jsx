@@ -13,7 +13,7 @@ export default function HomeCard(props) {
   return (
     <Card className="home-card " >
       <CardBody>
-        <CardImg src={props.image} alt="Card image cap" />
+        <CardImg src={props.image} alt="Card image cap" className="top-image"/>
         <p className=" align-items-center d-flex justify-content-center mt-1">
           <img
             src="https://cdn-icons-png.flaticon.com/128/535/535239.png"
@@ -73,7 +73,7 @@ export default function HomeCard(props) {
       </CardBody>
       <CardFooter>
         <p className="col-12 d-flex  align-items-center">
-          <Button variant="primary" className="col-6">
+          <Button  className="col-6 contact-button" >
             Contato
           </Button>
           <span className="col-6 text-center money-text">R$ {props.price}</span>
