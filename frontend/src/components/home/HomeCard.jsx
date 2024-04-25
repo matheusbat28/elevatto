@@ -13,7 +13,7 @@ export default function HomeCard(props) {
   return (
     <Card className="home-card " >
       <CardBody>
-        <CardImg src={props.image} alt="Card image cap" className="top-image"/>
+        <CardImg src={props.images[0]} alt="Card image cap" className="top-image"/>
         <p className=" align-items-center d-flex justify-content-center mt-1">
           <img
             src="https://cdn-icons-png.flaticon.com/128/535/535239.png"

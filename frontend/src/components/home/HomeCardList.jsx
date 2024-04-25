@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import HomeCard from "./HomeCard";
 import { exampleData } from "./exempleData";
+import HomeModal from "../modals/HomeModal";
 
 export default function HomeCardList() {
+  const [modalShow, setModalShow] = useState(false);
+  const [selectedHome, setSelectedHome] = useState(null);
   return (
     <div
       className="
@@ -10,8 +13,25 @@ export default function HomeCardList() {
     "
     >
       {exampleData.map((item) => {
-        return <HomeCard key={item.id} {...item} />;
+        return (
+          <div
+          onClick={() => {
+            setSelectedHome(item);
+            setModalShow(true);
+          }}
+          >
+          <HomeCard
+            key={item.id}
+            {...item}
+       
+          />
+          </div>
+        );
       })}
+      
+    {  selectedHome && <HomeModal show={modalShow} onHide={() => setModalShow(false)} 
+        {...selectedHome}
+      />}
     </div>
   );
 }

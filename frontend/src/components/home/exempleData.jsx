@@ -2,167 +2,183 @@ export const exampleData = [
     {
         id: 1,
         locate: 'São José, Fazenda Santo Antonio',
-        image: 'https://casascondor.com.br/wp-content/uploads/2022/10/2_casa_de_madeira_98m2-1.jpg',
+        images: ['https://casascondor.com.br/wp-content/uploads/2022/10/2_casa_de_madeira_98m2-1.jpg',],
         title: 'Casa',
         rooms: 3,
         bathrooms: 2,
         garages: 1,
         price: 100000,
-        area: 100
+        area: 100,
+        desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
     },
     {
         id: 2,
         locate: 'Cuzinho - Doce',
-        image: 'https://casascondor.com.br/wp-content/uploads/2022/10/2_casa_de_madeira_98m2-1.jpg',
+        images: ['https://casascondor.com.br/wp-content/uploads/2022/10/2_casa_de_madeira_98m2-1.jpg'],
         title: 'Casa',
         rooms: 3,
         bathrooms: 2,
         garages: 1,
         price: 100000,
-        area: 100
+        area: 100,
+        desc: 'Casa de dos campos de los campos de los campos de los campos de los campos de los campos de los campos de los campos de los campos de los campos de los campos de los'
     },
     {
         id: 3,
         locate: 'Aristocratas Gaus de São bonifacio que moram em casas de 1 milhão de reais',
-        image: 'https://casascondor.com.br/wp-content/uploads/2022/10/2_casa_de_madeira_98m2-1.jpg',
+        images: ['https://casascondor.com.br/wp-content/uploads/2022/10/2_casa_de_madeira_98m2-1.jpg'],
         title: 'Casa',
         rooms: 3,
         bathrooms: 2,
         garages: 1,
         price: 1000000,
-        area: 100
+        area: 100, 
+        desc: "O Rio Grande do Norte é isso: sal, sol, nordeste. Barreira do Inferno, viagens espaciais, industrialização. Algodão do Seridó, salinas de Mossoró e miragens. Luta contra a seca, praias de areias coloridas, céu limpo. O último forte do folclore brasileiro, a melhor carne-de-sol do Brasil. O litoral potiguar tem um céu limpo todo o ano, ventos fracos e regulares, chuvas rápidas"
     },
     {
         id: 4,
         locate: 'São José, Fazenda Santo Antonio',
-        image: 'https://casascondor.com.br/wp-content/uploads/2022/10/2_casa_de_madeira_98m2-1.jpg',
+        images: ['https://casascondor.com.br/wp-content/uploads/2022/10/2_casa_de_madeira_98m2-1.jpg'],
         title: 'Casa',
         rooms: 3,
         bathrooms: 2,
         garages: 1,
         price: 100000,
-        area: 100
+        area: 100,
+        desc: 'Casa de dos campos de los campos de los campos de los campos de los campos de los campos de los campos de los campos de los campos de los campos de los campos de los'
     },
     {
         id: 5,
         locate: 'Cuzinho - Doce',
-        image: 'https://casascondor.com.br/wp-content/uploads/2022/10/2_casa_de_madeira_98m2-1.jpg',
+        images: ['https://casascondor.com.br/wp-content/uploads/2022/10/2_casa_de_madeira_98m2-1.jpg'],
         title: 'Casa',
         rooms: 3,
         bathrooms: 2,
         garages: 1,
         price: 100000,
-        area: 100
+        area: 100,
+        desc: 'Casa de dos campos de los campos de los campos de los campos de los campos de los campos de los campos de los campos de los campos de los campos de los campos de los'
     },
     {
         id: 6,
         locate: 'Aristocratas Gaus de São bonifacio que moram em casas de 1 milhão de reais',
-        image: 'https://casascondor.com.br/wp-content/uploads/2022/10/2_casa_de_madeira_98m2-1.jpg',
+        images: ['https://casascondor.com.br/wp-content/uploads/2022/10/2_casa_de_madeira_98m2-1.jpg'],
         title: 'Casa',
         rooms: 3,
         bathrooms: 2,
         garages: 1,
         price: 1000000,
-        area: 100
+        area: 100,
+        desc: "O Rio Grande do Norte é isso: sal, sol, nordeste. Barreira do Inferno, viagens espaciais, industrialização. Algodão do Seridó, salinas de Mossoró e miragens. Luta contra a seca, praias de areias coloridas, céu limpo. O último forte do folclore brasileiro"  
     },
     {
         id: 7,
         locate: 'São José, Fazenda Santo Antonio',
-        image: 'https://casascondor.com.br/wp-content/uploads/2022/10/2_casa_de_madeira_98m2-1.jpg',
+        images: ['https://casascondor.com.br/wp-content/uploads/2022/10/2_casa_de_madeira_98m2-1.jpg'],
         title: 'Casa',
         rooms: 3,
         bathrooms: 2,
         garages: 1,
         price: 100000,
-        area: 100
+        area: 100,
+        desc: 'Muitas de suas concepções foram estudadas e desenvolvidas nos temposmodernos, e deram origem a grandes progressos das ciências nos últimosséculos.'
     },
     {
         id: 8,
         locate: 'Cuzinho - Doce',
-        image: 'https://casascondor.com.br/wp-content/uploads/2022/10/2_casa_de_madeira_98m2-1.jpg',
+        images: ['https://casascondor.com.br/wp-content/uploads/2022/10/2_casa_de_madeira_98m2-1.jpg'],
         title: 'Casa',
         rooms: 3,
         bathrooms: 2,
         garages: 1,
         price: 100000,
-        area: 100
+        area: 100,
+        desc: 'Casa de dos campos de los campos de los campos de los campos de los campos de los campos de los campos de los campos de los campos de los campos de los campos de los' 
     },
     {
         id: 9,
         locate: 'Aristocratas Gaus de São bonifacio que moram em casas de 1 milhão de reais',
-        image: 'https://casascondor.com.br/wp-content/uploads/2022/10/2_casa_de_madeira_98m2-1.jpg',
+        images: ['https://casascondor.com.br/wp-content/uploads/2022/10/2_casa_de_madeira_98m2-1.jpg'],
         title: 'Casa',
         rooms: 3,
         bathrooms: 2,
         garages: 1,
         price: 1000000,
-        area: 100
+        area: 100,
+        desc: "O Rio Grande do Norte é isso: sal, sol, nordeste. Barreira do Inferno, viagens espaciais, industrialização. Algodão do Seridó, salinas de Mossoró e miragens. Luta contra a seca, praias de areias coloridas, céu limpo. O último forte do folclore brasileiro"
     },
     {
         id: 10,
         locate: 'São José, Fazenda Santo Antonio',
-        image: 'https://casascondor.com.br/wp-content/uploads/2022/10/2_casa_de_madeira_98m2-1.jpg',
+        images: ['https://casascondor.com.br/wp-content/uploads/2022/10/2_casa_de_madeira_98m2-1.jpg'],
         title: 'Casa',
         rooms: 3,
         bathrooms: 2,
         garages: 1,
         price: 100000,
-        area: 100
+        area: 100,
+        desc: 'Casa de dos dsadsadasd dos dos dos dos dos dos dos dos dos dos dos '
     },
     {
         id: 11,
         locate: 'Cuzinho - Doce',
-        image: 'https://casascondor.com.br/wp-content/uploads/2022/10/2_casa_de_madeira_98m2-1.jpg',
+        images: ['https://casascondor.com.br/wp-content/uploads/2022/10/2_casa_de_madeira_98m2-1.jpg'],
         title: 'Casa',
         rooms: 3,
         bathrooms: 2,
         garages: 1,
         price: 100000,
-        area: 100
+        area: 100,
+        desc: 'Casa de dos campos de los campos de los campos de los campos de los campos de los campos de los campos de los campos de los campos de los campos de los campos de los'
     },
     {
         id: 12,
         locate: 'Aristocratas Gaus de São bonifacio que moram em casas de 1 milhão de reais',
-        image: 'https://casascondor.com.br/wp-content/uploads/2022/10/2_casa_de_madeira_98m2-1.jpg',
+        images: ['https://casascondor.com.br/wp-content/uploads/2022/10/2_casa_de_madeira_98m2-1.jpg'],
         title: 'Casa',
         rooms: 3,
         bathrooms: 2,
         garages: 1,
         price: 1000000,
-        area: 100
+        area: 100,
+        desc: "O Rio Grande do Norte é isso: sal, sol, nordeste. Barreira do Inferno, viagens espaciais, industrialização. Algodão do Seridó, salinas de Mossoró e miragens. Luta contra a seca, praias de areias coloridas, céu limpo. O último forte do folclore brasileiro"
     },
     {
         id: 13,
         locate: 'São José, Fazenda Santo Antonio',
-        image: 'https://casascondor.com.br/wp-content/uploads/2022/10/2_casa_de_madeira_98m2-1.jpg',
+        images: ['https://casascondor.com.br/wp-content/uploads/2022/10/2_casa_de_madeira_98m2-1.jpg'],
         title: 'Casa',
         rooms: 3,
         bathrooms: 2,
         garages: 1,
         price: 100000,
-        area: 100
+        area: 100,
+        desc: "O Rio Grande do Norte é isso: sal, sol, nordeste. Barreira do Inferno, viagens espaciais, industrialização. Algodão do Seridó, salinas de Mossoró e miragens. Luta contra a seca, praias de areias coloridas, céu limpo. O último forte do folclore brasileiro"
     },
     {
         id: 14,
         locate: 'Cuzinho - Doce',
-        image: 'https://casascondor.com.br/wp-content/uploads/2022/10/2_casa_de_madeira_98m2-1.jpg',
+        images: ['https://casascondor.com.br/wp-content/uploads/2022/10/2_casa_de_madeira_98m2-1.jpg'],
         title: 'Casa',
         rooms: 3,
         bathrooms: 2,
         garages: 1,
         price: 100000,
-        area: 100
+        area: 100,
+        desc: 'Casa de dos campos de los campos de los campos de los campos de los campos de los campos de los campos de los campos de los campos de los campos de los campos de los'
+
     },
     {
         id: 15,
         locate: 'Aristocratas Gaus de São bonifacio que moram em casas de 1 milhão de reais',
-        image: 'https://casascondor.com.br/wp-content/uploads/2022/10/2_casa_de_madeira_98m2-1.jpg',
+        images: ['https://casascondor.com.br/wp-content/uploads/2022/10/2_casa_de_madeira_98m2-1.jpg'],
         title: 'Casa',
         rooms: 3,
         bathrooms: 2,
         garages: 1,
         price: 1000000,
-        area: 100
+        area: 100,
+        desc: "O Rio Grande do Norte é isso: sal, sol, nordeste. Barreira do Inferno, viagens espaciais, industrialização. Algodão do Seridó, salinas de Mossoró e miragens. Luta contra a seca, praias de areias coloridas, céu limpo. O último forte do folclore brasileiro, a melhor carne-de-sol do Brasil. O litoral potiguar tem um céu limpo todo o ano, ventos fracos e regulares, chuvas rápidas"
     }
     
 

@@ -45,3 +45,9 @@
     border: none !important;
     color:black !important;
 }
+
+.modal-image{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
