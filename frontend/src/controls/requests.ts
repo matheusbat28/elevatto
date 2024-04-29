@@ -9,10 +9,53 @@ export async function getTokens(username: string, password: string) {
   return response.data;
 }
 
+// verify token
+export async function verifyToken(token: string) {
+  const response = await axios.post("jwt/verify/", {
+    token,
+  });
+  return response.data;
+}
+
+// refresh token
+export async function refreshToken(token: string) {
+  const response = await axios.post("jwt/refresh/", {
+    token,
+  });
+  return response.data;
+}
+
+// is authenticated
+export async function isAuthenticated() {
+  const access = localStorage.getItem("access");
+  if (!access) {
+    window.location.href = "/login";
+  } else {
+    try {
+      await verifyToken(access);
+    } catch (error) {
+      const refresh = localStorage.getItem("refresh");
+      if (!refresh) {
+        window.location.href = "/login";
+      } else {
+        const response = await refreshToken(refresh);
+        localStorage.setItem("access", response.access);
+      }
+    }
+  }
+
+}
+
+// logout
+export function logout() {
+  localStorage.clear();
+  window.location.href = "/login";
+}
+
 // get user Logged
 export async function getUserLogged() {
+  isAuthenticated();
   const access = localStorage.getItem("access");
-  console.log(access);
   const response = await axios.get("users/me/", {
     headers: {
       Authorization: `Bearer ${access}`,
@@ -35,6 +78,7 @@ export async function getProperty(id: string) {
 
 // create property
 export async function createProperty(data: any) {
+  isAuthenticated();
   const access = localStorage.getItem("access");
   const response = await axios.post("properties/", data, {
     headers: {
@@ -46,6 +90,7 @@ export async function createProperty(data: any) {
 
 // update property
 export async function updateProperty(id: string, data: any) {
+  isAuthenticated();
   const access = localStorage.getItem("access");
   const response = await axios.put(`properties/${id}/`, data, {
     headers: {
@@ -57,6 +102,7 @@ export async function updateProperty(id: string, data: any) {
 
 // delete property
 export async function deleteProperty(id: string) {
+  isAuthenticated();
   const access = localStorage.getItem("access");
   const response = await axios.delete(`properties/${id}/`, {
     headers: {

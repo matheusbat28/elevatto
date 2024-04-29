@@ -101,7 +101,6 @@ export default function Login() {
     getTokens(username, password).then((response) => {
       localStorage.setItem('access', response.access);
       localStorage.setItem('refresh', response.refresh);
-      console.log(response);
       getUserLogged().then((response) => {
         localStorage.setItem('user', JSON.stringify(response));
       });
