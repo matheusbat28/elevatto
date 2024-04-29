@@ -1,6 +1,7 @@
 import React from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
+import CarouselModal from "./CarouselModal";
 
 export default function HouseModal(props) {
   console.log(props)
@@ -17,7 +18,9 @@ export default function HouseModal(props) {
       <Modal.Body>
         <div>
           <div>
-            <img src={props.images[0]} alt="Card image cap" className="modal-image" />
+          <CarouselModal
+          images={props.images}
+          />
           
   
       </div>

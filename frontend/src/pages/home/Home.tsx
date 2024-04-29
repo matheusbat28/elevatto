@@ -1,5 +1,6 @@
 import React from "react";
 import HomeCardList from "../../components/home/HomeCardList";
+import Footer from "../../components/home/Footer.jsx";
 
 
 export default function Home() {
@@ -7,6 +8,7 @@ export default function Home() {
     <div>
       <h1>Home</h1>
       <HomeCardList />
+      <Footer />
     </div>
   )
 }

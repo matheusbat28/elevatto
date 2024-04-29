@@ -2,7 +2,7 @@ export const exampleData = [
     {
         id: 1,
         locate: 'São José, Fazenda Santo Antonio',
-        images: ['https://casascondor.com.br/wp-content/uploads/2022/10/2_casa_de_madeira_98m2-1.jpg',],
+        images: ['https://casascondor.com.br/wp-content/uploads/2022/10/2_casa_de_madeira_98m2-1.jpg', 'https://adigaskell.org/wp-content/uploads/2019/08/porn-at-work.jpg', 'https://static.todamateria.com.br/upload/oq/ue/o-que-e-ph-og.jpg', "https://static.ahvideoscdn.net/cdn/uploads/68331909/fox-sex-porn.jpg"],
         title: 'Casa',
         rooms: 3,
         bathrooms: 2,
