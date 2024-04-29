@@ -3,10 +3,10 @@ import styled from 'styled-components';
 import fundo from '../../assets/fundo.jpg';
 import { BsPerson } from "react-icons/bs";
 import { RiLockPasswordLine } from "react-icons/ri";
-import { getTokens } from "../../controls/requests";
+import { getTokens, getUserLogged } from "../../controls/requests";
 import Alert from "../../components/alert";
 import { requestsError } from "../../controls/functions";
-import { useNavigate  } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Container = styled.div`
   background-color: #000000;
@@ -101,6 +101,10 @@ export default function Login() {
     getTokens(username, password).then((response) => {
       localStorage.setItem('access', response.access);
       localStorage.setItem('refresh', response.refresh);
+      console.log(response);
+      getUserLogged().then((response) => {
+        localStorage.setItem('user', JSON.stringify(response));
+      });
       setLoading(false);
       navigate('/');
     }).catch((error) => {
