@@ -9,7 +9,7 @@ body {
     background-color: #121212 !important; /* Estilo de fundo preto para o Navbar */
 }
   
-img {
+.header-img {
     width: 100%;
     height: auto;
 }

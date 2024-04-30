@@ -8,23 +8,24 @@ export default function HouseModal(props) {
   return (
     <Modal
       {...props}
-      size="lg"
+      size="xl"
       aria-labelledby="contained-modal-title-vcenter"
       centered
     >
       <Modal.Header closeButton>
-      <h3>{props.locate}</h3>
+      
       </Modal.Header>
       <Modal.Body>
-        <div>
-          <div>
+        <div className="d-flex">
+          <div className="col-6">
           <CarouselModal
           images={props.images}
           />
           
   
       </div>
-        <div className="mt-3">
+        <div className="mt-3 ms-4 col-6">
+        <h5>{props.locate}</h5>
         <p>{props.desc}</p>
         </div>
         </div>

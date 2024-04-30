@@ -7,7 +7,7 @@ const NavBar = () => {
     <Navbar expand="md" className="custom-navbar"> {/* Adicione a classe custom-navbar aqui */}
       <Container>
         <Navbar.Brand href="/">
-          <img src={LOGO} alt="Logo" />
+          <img className="header-img" src={LOGO} alt="Logo" />
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav">
           <span className="navbar-toggler-icon"></span>
