@@ -40,6 +40,9 @@
     font-size: 15px !important;
 }
 
+
+
+
 .contact-button:hover{
     background-color: #f5a42a !important;
     border: none !important;
@@ -86,4 +89,9 @@
         margin-bottom: 20px;
         width: 100% !important;
     }
+}
+
+
+.text-black{
+    color: black!important;
 }

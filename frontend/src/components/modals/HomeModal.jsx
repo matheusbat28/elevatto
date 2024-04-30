@@ -24,15 +24,17 @@ export default function HouseModal(props) {
           
   
       </div>
-        <div className="mt-3 ms-4 col-6">
+        <div className="mt-3 pe-3 ms-4 col-6 text-black">
         <h5>{props.locate}</h5>
         <p>{props.desc}</p>
         </div>
         </div>
       </Modal.Body>
-      {/* <Modal.Footer>
-        <Button onClick={props.onHide}>Close</Button>
-      </Modal.Footer> */}
+       <Modal.Footer>
+        <Button className="contact-button" >
+          Entrar em contato
+        </Button>
+      </Modal.Footer> 
     </Modal>
   );
 }
