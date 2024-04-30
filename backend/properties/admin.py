@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Properties
+from .models import Properties, Foto
 
 @admin.register(Properties)
 class PropertiesAdmin(admin.ModelAdmin):
@@ -9,3 +9,7 @@ class PropertiesAdmin(admin.ModelAdmin):
     per_page = 10
     exclude = ('created_at',)
 
+@admin.register(Foto)
+class FotoAdmin(admin.ModelAdmin):
+    list_display = ('id', 'foto')
+    per_page = 10
