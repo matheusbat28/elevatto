@@ -21,7 +21,7 @@ from django.conf.urls.static import static
 from drf_yasg import openapi
 from drf_yasg.views import get_schema_view
 from rest_framework import permissions
-from properties.views import PropertiesViewSet
+from properties.views import PropertiesViewSet, FotoViewSet
 from rest_framework import routers
 
 schema_view = get_schema_view(
@@ -38,6 +38,7 @@ schema_view = get_schema_view(
 
 router = routers.DefaultRouter()
 router.register(r'properties', PropertiesViewSet)
+router.register(r'photos', FotoViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
