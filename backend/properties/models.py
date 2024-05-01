@@ -4,7 +4,7 @@ class Foto(models.Model):
     foto = models.ImageField(upload_to='fotos')
     
     def __str__(self):
-        return f'{self.id}'
+        return [self.foto.url, f'{self.id}']
     
     class Meta:
         verbose_name = 'Foto'
