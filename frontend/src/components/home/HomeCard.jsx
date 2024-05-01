@@ -11,7 +11,10 @@ import {
 
 export default function HomeCard(props) {
   return (
-    <Card className="home-card " >
+    <Card className="home-card "     onClick={() => {
+      props.setSelectedHome(props.item);
+      props.setModalShow(true);
+    }}>
       <CardBody>
         <CardImg src={props.images[0]} alt="Card image cap" className="top-image"/>
         <p className=" align-items-center d-flex justify-content-center mt-1">
