@@ -54,7 +54,6 @@ export function logout() {
 
 // get user Logged
 export async function getUserLogged() {
-  isAuthenticated();
   const access = localStorage.getItem("access");
   const response = await axios.get("users/me/", {
     headers: {
