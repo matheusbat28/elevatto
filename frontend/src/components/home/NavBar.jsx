@@ -4,8 +4,7 @@ import "../home/App.css";
 
 const NavBar = () => {
   return (
-    <Navbar expand="md" className="custom-navbar"> {/* Adicione a classe custom-navbar aqui */}
-      <Container>
+    <Navbar expand="md" className="custom-navbar"> {}
         <Navbar.Brand href="/">
           <img className="header-img" src={LOGO} alt="Logo" />
         </Navbar.Brand>
@@ -30,7 +29,6 @@ const NavBar = () => {
           <span className="navbar-text">
           </span>
         </Navbar.Collapse>
-      </Container>
     </Navbar>
   );
 };

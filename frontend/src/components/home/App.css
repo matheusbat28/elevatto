@@ -6,11 +6,12 @@ body {
 }
 
 .custom-navbar {
-    background-color: #121212 !important; /* Estilo de fundo preto para o Navbar */
+    background-color: #121212 !important;
 }
   
 .header-img {
-    width: 100%;
+    padding-left: 50px;
+    width: 90%;
     height: auto;
 }
   
@@ -23,6 +24,7 @@ nav.navbar.scrolled {
     padding: 0px 0;
     background-color: #121212;
 }
+
 nav.navbar a.navbar-brand {
       width: 9%;
 }
@@ -32,6 +34,10 @@ nav.navbar .navbar-nav .nav-link.navbar-link {
     letter-spacing: 0.8px;
     padding: 0 25px;
     font-size: 18px;
+}
+
+nav.navbar{
+    padding-right: 100px;
 }
 
 nav.navbar .navbar-toggler-icon {
