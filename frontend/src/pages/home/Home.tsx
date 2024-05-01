@@ -7,6 +7,9 @@ import WhatsAppButton from "../../components/whatsappButton";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 export default function Home() {
+
+  document.title = "Home | Elevatto";
+
   return (
     <div>
       <WhatsAppButton />
