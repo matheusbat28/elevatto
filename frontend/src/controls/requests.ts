@@ -111,3 +111,53 @@ export async function deleteProperty(id: string) {
   });
   return response.data;
 }
+
+// get photos
+export async function getPhotos() {
+  const response = await axios.get("photos/");
+  return response.data;
+}
+
+// get photo by id
+export async function getPhoto(id: string) {
+  const response = await axios.get(`photos/${id}/`);
+  return response.data;
+}
+
+// create photo
+export async function createPhoto(data: any) {
+  isAuthenticated();
+  const access = localStorage.getItem("access");
+  const response = await axios.post("photos/", data, {
+    headers: {
+      Authorization: `Bearer ${access}`,
+      'Content-Type': 'multipart/form-data'
+    },
+  });
+  return response.data;
+}
+
+// update photo
+export async function updatePhoto(id: string, data: any) {
+  isAuthenticated();
+  const access = localStorage.getItem("access");
+  const response = await axios.put(`photos/${id}/`, data, {
+    headers: {
+      Authorization: `Bearer ${access}`,
+      'Content-Type': 'multipart/form-data'
+    },
+  });
+  return response.data;
+}
+
+// delete photo
+export async function deletePhoto(id: string) {
+  isAuthenticated();
+  const access = localStorage.getItem("access");
+  const response = await axios.delete(`photos/${id}/`, {
+    headers: {
+      Authorization: `Bearer ${access}`,
+    },
+  });
+  return response.data;
+}
