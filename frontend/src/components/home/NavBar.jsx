@@ -1,6 +1,7 @@
-import { Navbar, Nav, Container } from "react-bootstrap";
+import { Navbar, Nav, } from "react-bootstrap";
 import LOGO from "../../assets/logoVetor.svg";
 import "../home/App.css";
+import Form from 'react-bootstrap/Form';
 
 const NavBar = () => {
   return (
@@ -13,14 +14,14 @@ const NavBar = () => {
         </Navbar.Toggle>
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ms-auto">
+          <Form inline>
+              <Form.Control type="text" placeholder="Busca" className="mr-sm-2" />
+            </Form>
             <Nav.Link href="#regiao" className={"active navbar-link"}>
               Região
             </Nav.Link>
             <Nav.Link href="#propriedade" className={" navbar-link"}>
               Tipo de propriedade
-            </Nav.Link>
-            <Nav.Link href="#Busca" className={"navbar-link"}>
-              Busca
             </Nav.Link>
             <Nav.Link href="Usuario" className={"navbar-link"}>
               Olá, visitante
