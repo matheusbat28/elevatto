@@ -15,15 +15,14 @@ export default function HomeCardList() {
       {exampleData.map((item) => {
         return (
           <div
-          onClick={() => {
-            setSelectedHome(item);
-            setModalShow(true);
-          }}
+ 
           >
           <HomeCard
             key={item.id}
             {...item}
-       
+            item={item}
+            setSelectedHome={setSelectedHome}
+            setModalShow={setModalShow}
           />
           </div>
         );

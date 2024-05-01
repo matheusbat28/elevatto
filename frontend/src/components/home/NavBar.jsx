@@ -4,6 +4,15 @@ import "../home/App.css";
 import Form from 'react-bootstrap/Form';
 
 const NavBar = () => {
+
+  const [user, setUser] = React.useState(null);
+
+  React.useEffect(() => {
+    getUserLogged().then((response) => {
+      setUser(response);
+    });
+  }, []);
+
   return (
     <Navbar expand="md" className="custom-navbar"> {}
         <Navbar.Brand href="/">

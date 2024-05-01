@@ -74,6 +74,26 @@
     font-size: 20px;
 }
 
+.images-carousel{
+    width: 50%;
+    padding: 0;
+}
+
+.text-carousel{
+    width: 50%;
+    padding: 0;
+    padding-left: 2%;
+}
+
+.images-flex{
+    display: flex;
+    flex-direction: row;
+
+}
+
+.modal-text-desc{
+    height: 65%;
+}
 
 @media only screen and (max-width: 850px) {
     .footer{
@@ -88,6 +108,28 @@
     .footer > div{
         margin-bottom: 20px;
         width: 100% !important;
+    }
+
+    .images-carousel{
+        width: 100%;
+        padding: 0;
+    }
+
+    .images-flex{
+        display: flex;
+        flex-direction: column;
+    }
+
+    .text-carousel{
+        width: 100%;
+        padding: 0;
+        padding-left: 0;
+        padding-top: 10%;
+    }
+
+    .modal-text-desc{
+        height: 100%;
+    margin-top: 20px;
     }
 }
 
