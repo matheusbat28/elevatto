@@ -79,8 +79,8 @@ nav.navbar .navbar-toggler-icon {
 .dropdown-container {
     background-color: #fff;
     margin-top: 18% !important;
-    border-radius: 10%;
-    padding: 8px;
+    border-radius: 8px;
+    padding: 5px 20px;
 }
 
 .dropdown-group {

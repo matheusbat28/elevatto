@@ -18,45 +18,48 @@ const SubHeader = () => (
                 </Dropdown.Menu>
             </Dropdown>
 
-        <Dropdown className="nav-item dropdown-container" style={{ margin: '0 12px' }}>
-            <Dropdown.Toggle className="nav-link" id="dropdown-basic">
-                Preços
-            </Dropdown.Toggle>
+            <Dropdown className="nav-item dropdown-container" style={{ margin: '0 12px' }}>
+                <Dropdown.Toggle className="nav-link" id="dropdown-basic">
+                    Preços
+                </Dropdown.Toggle>
 
-            <Dropdown.Menu className="dropdown-menu">
-                <Dropdown.Item href="#">10 real</Dropdown.Item>
-                <Dropdown.Item href="#">10 real</Dropdown.Item>
-                <Dropdown.Item href="#">10 real</Dropdown.Item>
-                <Dropdown.Divider />
-            </Dropdown.Menu>
-        </Dropdown>
+                <Dropdown.Menu className="dropdown-menu">
+                    <Dropdown.Item href="#">10 real</Dropdown.Item>
+                    <Dropdown.Item href="#">10 real</Dropdown.Item>
+                    <Dropdown.Item href="#">10 real</Dropdown.Item>
+                    <Dropdown.Divider />
+                </Dropdown.Menu>
+            </Dropdown>
 
-        <Dropdown className="nav-item dropdown-container" style={{ margin: '0 12px' }}>
-            <Dropdown.Toggle className="nav-link" id="dropdown-basic">
-                Quartos
-            </Dropdown.Toggle>
+            <Dropdown className="nav-item dropdown-container" style={{ margin: '0 12px' }}>
+                <Dropdown.Toggle className="nav-link" id="dropdown-basic">
+                    Quartos
+                </Dropdown.Toggle>
 
-            <Dropdown.Menu className="dropdown-menu">
-                <Dropdown.Item href="#">1</Dropdown.Item>
-                <Dropdown.Item href="#">2</Dropdown.Item>
-                <Dropdown.Item href="#">3</Dropdown.Item>
-                <Dropdown.Divider />
-            </Dropdown.Menu>
-        </Dropdown>
+                <Dropdown.Menu className="dropdown-menu">
+                    <Dropdown.Item href="#">1</Dropdown.Item>
+                    <Dropdown.Item href="#">2</Dropdown.Item>
+                    <Dropdown.Item href="#">3</Dropdown.Item>
+                    <Dropdown.Divider />
+                </Dropdown.Menu>
+            </Dropdown>
 
-        <Dropdown className="nav-item dropdown-container" style={{ margin: '0 12px' }}>
-            <Dropdown.Toggle className="nav-link" id="dropdown-basic">
-                Mais
-            </Dropdown.Toggle>
+            <Dropdown className="nav-item dropdown-container" style={{ margin: '0 12px' }}>
+                <Dropdown.Toggle className="nav-link" id="dropdown-basic">
+                    Mais
+                </Dropdown.Toggle>
 
-            <Dropdown.Menu className="dropdown-menu">
-                <Dropdown.Item href="#">Action</Dropdown.Item>
-                <Dropdown.Item href="#">Another action</Dropdown.Item>
-                <Dropdown.Item href="#">Something else here</Dropdown.Item>
-                <Dropdown.Divider />
-            </Dropdown.Menu>
-        </Dropdown>
-    </div>
+                <Dropdown.Menu className="dropdown-menu">
+                    <Dropdown.Item href="#">Action</Dropdown.Item>
+                    <Dropdown.Item href="#">Another action</Dropdown.Item>
+                    <Dropdown.Item href="#">Something else here</Dropdown.Item>
+                    <Dropdown.Divider />
+                </Dropdown.Menu>
+            </Dropdown>
+
+
+            <button className="dropdown-container" style={{ margin: '0 12px', padding: '5px 20px', height: '40px', borderRadius: '5px', border: 'none', backgroundColor: '#FEBD59', color: 'white' }}> Buscar </button>
+        </div>
     </div>
 );
 
