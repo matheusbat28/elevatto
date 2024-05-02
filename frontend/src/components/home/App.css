@@ -95,6 +95,6 @@ nav.navbar .navbar-toggler-icon {
 
 .btn:hover {
     color: var(--bs-btn-hover-color);
-    background-color: #ffffff;
-    border-color: #ffffff;
+    background-color: #ffffff !important;
+    border-color: #ffffff !important;
 }
