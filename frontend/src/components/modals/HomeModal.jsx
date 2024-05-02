@@ -86,11 +86,9 @@ export default function HouseModal(props) {
   }, [props]);
   const [fileInput, setFileInput] = useState(null);
 
-
   useEffect(() => {
-    setMode("display")
-  } , [props] )
-
+    setMode("display");
+  }, [props]);
 
   return (
     <Modal
@@ -103,7 +101,7 @@ export default function HouseModal(props) {
         {mode !== "edit" && (
           <button
             className="
-        btn btn-primary
+        btn btn-secondary
         "
             onClick={() => {
               setMode("edit");
@@ -203,9 +201,11 @@ export default function HouseModal(props) {
           <form className="  text-carousel text-black flex-grow-1">
             {mode === "edit" ? (
               // Render edit mode elements here
-              <div style={{ display: "flex", flexDirection: "column" }} className="mt-4">
+              <div
+                style={{ display: "flex", flexDirection: "column" }}
+                className="mt-4"
+              >
                 <input
-
                   type="text"
                   value={item.locate}
                   onChange={(e) => setItem({ ...item, locate: e.target.value })}
@@ -244,20 +244,20 @@ export default function HouseModal(props) {
                       />
                     </div>
                     <div>
-                    <div className="col-6 d-flex">
-                      <span className="col-8">Preço:</span>
+                      <div className="col-6 d-flex">
+                        <span className="col-8">Preço:</span>
 
-                      <input
-                        type="number"
-                        value={item.price}
-                        onChange={(e) =>
-                          setItem({ ...item, price: e.target.value })
-                        }
-                        className="form-control mb-3 me-3 col-4"
-                        placeholder="R$"
-                      />
+                        <input
+                          type="number"
+                          value={item.price}
+                          onChange={(e) =>
+                            setItem({ ...item, price: e.target.value })
+                          }
+                          className="form-control mb-3 me-3 col-4"
+                          placeholder="R$"
+                        />
+                      </div>
                     </div>
-                  </div>
                   </div>
                   <div>
                     <div className="col-6 d-flex">
@@ -285,7 +285,6 @@ export default function HouseModal(props) {
                       />
                     </div>
                   </div>
-         
                 </div>
               </div>
             ) : (
@@ -341,27 +340,28 @@ export default function HouseModal(props) {
         </div>
       </Modal.Body>
       <Modal.Footer>
-        {
-          mode !== "edit" ? 
-          <Button className="contact-button">Entrar em contato</Button> :
+        {mode !== "edit" ? (
+          <Button className="contact-button">Entrar em contato</Button>
+        ) : (
           <>
-          <Button
-            onClick={() => {
-              setMode("edit");
-              props.onHide();
-            }}
-            className="btn-danger"
-          >
-            Cancelar
-          </Button>
-          <Button
-            
-          >
-            Salvar
-          </Button>
+            <Button
+              onClick={() => {
+                setMode("edit");
+                props.onHide();
+              }}
+              className="btn-danger"
+            >
+              Cancelar
+            </Button>
+            <Button
+              onClick={() => {
+                setMode("display");
+                //props.onSave(item);
+              }}
+              className="btn-primary"
+            >Salvar</Button>
           </>
-
-          }
+        )}
       </Modal.Footer>
     </Modal>
   );

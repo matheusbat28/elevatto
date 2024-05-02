@@ -34,7 +34,7 @@ export default function HomeCard(props) {
           </CardTitle>
         </p>
         <CardText>
-          <div>
+          <div className="ps-4">
             <p className="col-12 d-flex">
               <div className="col-6">
                 <img
