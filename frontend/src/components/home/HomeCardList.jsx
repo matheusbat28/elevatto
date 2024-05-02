@@ -1,11 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import HomeCard from "./HomeCard";
 import { exampleData } from "./exempleData";
 import HomeModal from "../modals/HomeModal";
+import { getProperties } from "../../controls/requests";
 
 export default function HomeCardList() {
   const [modalShow, setModalShow] = useState(false);
   const [selectedHome, setSelectedHome] = useState(null);
+  const [properties, setProperties] = useState([]);
+
+  useEffect(() => {
+    getProperties().then((data) => {
+      setProperties(data);
+    });
+  }, []);
+  
   return (
     <div
       className="
