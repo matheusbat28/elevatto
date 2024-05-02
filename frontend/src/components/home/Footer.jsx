@@ -22,7 +22,7 @@ export default function Footer() {
           <div className="col-4 align-self-center text-left">
           <p><FaGoogle size={24} /> contato@gmail.com</p>
           <p><FaWhatsapp size={27} /> (00) 0000-0000</p>
-          <p><FaInstagram size={31} /> @Imobiliária Elevatto</p>
+          <p><FaInstagram size={28} /> @Imobiliária Elevatto</p>
           </div>
         </div>
       );

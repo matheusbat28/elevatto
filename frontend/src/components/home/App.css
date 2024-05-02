@@ -98,3 +98,28 @@ nav.navbar .navbar-toggler-icon {
     background-color: #ffffff !important;
     border-color: #ffffff !important;
 }
+
+.input-group {
+    position: relative;
+  }
+  
+  .input-group-append {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  .form-control:focus {
+    border-color: #ced4da;
+    box-shadow: none;
+  }
+
+  .input-group:focus-within {
+    box-shadow: none !important;
+  }
+  
+  .form-control:focus {
+    border-color: inherit !important;
+    box-shadow: none !important;
+  }
