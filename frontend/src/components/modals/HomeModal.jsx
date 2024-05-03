@@ -34,9 +34,7 @@ export default function HouseModal(props) {
     }
   );
 
-  const [formattedPrice, setFormattedPrice] = useState(
-    item.price.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })
-  );
+
 
   const handleAddImage = (image) => {
     action({ type: "ADD_IMAGE", image });
@@ -71,6 +69,11 @@ export default function HouseModal(props) {
   };
   const [mode, setMode] = useState("display");
 
+useEffect(() => {
+  setMode(props.type)
+  }, [props.type])
+
+
   useEffect(() => {
     setItem({
       locate: props.locate,
@@ -86,9 +89,7 @@ export default function HouseModal(props) {
   }, [props]);
   const [fileInput, setFileInput] = useState(null);
 
-  useEffect(() => {
-    setMode("display");
-  }, [props]);
+ 
 
   return (
     <Modal
@@ -157,7 +158,7 @@ export default function HouseModal(props) {
                   )}
                 </div>
                 <hr className="text-black" />
-                {item.images.map((image, index) => (
+                {item.images[0] && item.images.map((image, index) => (
                   <div key={index} className=" mt-4">
                     {index === 0 && (
                       <h4 className="text-center text-black">
@@ -210,12 +211,14 @@ export default function HouseModal(props) {
                   value={item.locate}
                   onChange={(e) => setItem({ ...item, locate: e.target.value })}
                   className="form-control mb-3 mt-4"
+                  placeholder="Titulo"
                 />
                 <textarea
                   value={item.desc}
                   onChange={(e) => setItem({ ...item, desc: e.target.value })}
                   className="form-control mb-3"
                   rows={7} // Add this line to set the initial number of rows
+                  placeholder="Descrição"
                 />
                 <div
                   style={{ display: "flex", justifyContent: "space-between" }}
@@ -340,9 +343,21 @@ export default function HouseModal(props) {
         </div>
       </Modal.Body>
       <Modal.Footer>
+
         {mode !== "edit" ? (
+          <>
+          <p>
+            <span className="text-center me-3 money-text"> {
+              item.price.toLocaleString("pt-BR", {
+                style: "currency",
+                currency: "BRL",
+              })
+            }</span>
+          </p>
           <Button className="contact-button">Entrar em contato</Button>
-        ) : (
+          
+          </>
+                  ) : (
           <>
             <Button
               onClick={() => {
