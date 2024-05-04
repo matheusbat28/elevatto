@@ -1,7 +1,7 @@
 import React from 'react'
 import logo from '../../assets/logo.png'
 import { FaGoogle, FaWhatsapp, FaInstagram  } from "react-icons/fa";
-import { IoLogoInstagram } from "react-icons/io";
+import '../../index.css'
 
 export default function Footer() {
     return (
@@ -22,7 +22,7 @@ export default function Footer() {
           <div className="col-4 align-self-center text-left">
           <p><FaGoogle size={24} /> contato@gmail.com</p>
           <p><FaWhatsapp size={27} /> (00) 0000-0000</p>
-          <p><FaInstagram size={28} /> @Imobiliária Elevatto</p>
+          <p id="last-paragraph"><FaInstagram size={28} /> @Imobiliária Elevatto</p>
           </div>
         </div>
       );
