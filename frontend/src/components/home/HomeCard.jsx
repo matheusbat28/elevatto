@@ -10,6 +10,7 @@ import {
 } from "react-bootstrap";
 
 export default function HomeCard(props) {
+  console.log(props.photo)
   return (
     <Card className="home-card "     onClick={() => {
       props.setSelectedHome(props.item);
@@ -19,6 +20,7 @@ export default function HomeCard(props) {
       <CardBody>
        
        {props.images[0] && <CardImg src={props.images[0]} alt="Card image cap" className="top-image"/> }
+       {props?.photo && <CardImg src={props.photo} alt="Card image cap" className="top-card-image"/> }
         <p className=" align-items-center d-flex justify-content-center mt-1">
           <img
             src="https://cdn-icons-png.flaticon.com/128/535/535239.png"
@@ -29,10 +31,14 @@ export default function HomeCard(props) {
             className=" col-12 text-center mt-1"
             style={{ fontSize: "1.2rem" }}
             title={props.locate}
+            title={props.title}
           >
             {props.locate.length > 20
               ? props.locate.substring(0, 20) + "..."
               : props.locate}
+            {props.title.length > 20
+              ? props.title.substring(0, 20) + "..."
+              : props.title}
           </CardTitle>
         </p>
         <CardText>
@@ -45,6 +51,8 @@ export default function HomeCard(props) {
                   className="icon me-2"
                 />
                 <span className=" text-center">{props.rooms} Quartos</span>
+                <span className=" text-center">{props.bedrooms
+} Quartos</span>
               </div>
               <div className="col-6">
                 <img
@@ -71,6 +79,7 @@ export default function HomeCard(props) {
                   className="icon me-2"
                 />
                 <span className="text-center">{props.garages} Garagens</span>
+                <span className="text-center">{props.parking} Garagens</span>
               </div>
             </p>
           </div>

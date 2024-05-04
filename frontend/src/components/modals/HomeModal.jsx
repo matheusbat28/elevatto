@@ -22,14 +22,14 @@ export default function HouseModal(props) {
       }
     },
     {
-      locate: props.locate,
+      locate: props.title,
       desc: props.desc,
-      rooms: props.rooms,
+      bedrooms: props.bedrooms,
       price: props.price,
       images: props.images,
       title: props.title,
       bathrooms: props.bathrooms,
-      garages: props.garages,
+      parking: props.parking,
       area: props.area,
     }
   );
@@ -76,14 +76,15 @@ useEffect(() => {
 
   useEffect(() => {
     setItem({
-      locate: props.locate,
+
       desc: props.desc,
-      rooms: props.rooms,
+      bedrooms: props.bedrooms
+,
       price: props.price,
       images: props.images,
       title: props.title,
       bathrooms: props.bathrooms,
-      garages: props.garages,
+      parking: props.parking,
       area: props.area,
     });
   }, [props]);
@@ -158,7 +159,7 @@ useEffect(() => {
                   )}
                 </div>
                 <hr className="text-black" />
-                {item.images[0] && item.images.map((image, index) => (
+                {item.images && item.images[0] && item.images.map((image, index) => (
                   <div key={index} className=" mt-4">
                     {index === 0 && (
                       <h4 className="text-center text-black">
@@ -268,9 +269,9 @@ useEffect(() => {
 
                       <input
                         type="number"
-                        value={item.garages}
+                        value={item.parking}
                         onChange={(e) =>
-                          setItem({ ...item, garages: e.target.value })
+                          setItem({ ...item, parking: e.target.value })
                         }
                         className="form-control mb-3 me-3 col-4"
                       />
@@ -332,7 +333,7 @@ useEffect(() => {
                         className="icon me-2"
                       />
                       <span className="text-center">
-                        {item.garages} Garagens
+                        {item.parking} Garagens
                       </span>
                     </div>
                   </p>

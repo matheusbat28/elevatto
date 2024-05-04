@@ -7,8 +7,8 @@ export default function CarouselModal(props) {
     
     return (
         <Carousel>
-            {
-                images.length === 0 ?
+            {   images &&
+                (images.length === 0 ?
                 <Carousel.Item>
                     <img
                         className="d-block fixed-carousel-image"
@@ -28,7 +28,7 @@ export default function CarouselModal(props) {
                             alt="First slide"
                         />
                     </Carousel.Item>
-                ))
+                )))
             }
      
 

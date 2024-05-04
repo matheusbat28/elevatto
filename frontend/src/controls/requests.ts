@@ -112,9 +112,27 @@ export async function deleteProperty(id: string) {
 }
 
 // get photos
-export async function getPhotos() {
-  const response = await axios.get("photos/");
-  return response.data;
+export async function getPhotos(array: Array) {
+  console.log(array)
+
+  let ids = String("")
+     //parse array to string
+  for (let i = 0; i < array.length; i++) {
+    ids = ids + array[i] + ","
+  }
+  ids = ids.substring(0, ids.length - 1);
+ 
+  let response = Object(
+    {
+      data: []
+    }
+  )
+if(
+  ids.length > 0
+) {
+  response =  await axios.get("photos/?ids=" + ids);
+}
+   return response.data;
 }
 
 // get photo by id
