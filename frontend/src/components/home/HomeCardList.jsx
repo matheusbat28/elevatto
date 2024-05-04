@@ -25,7 +25,8 @@ export default function HomeCardList() {
         firstImages
       ).then((photosArray) => {
         setPhotosArray(photosArray);
-        if(photosArray.length > firstImages.length){
+        console.log(photosArray);
+        if(photosArray.length >= firstImages.length){
           setLoading(false)
         }
 
@@ -37,7 +38,7 @@ export default function HomeCardList() {
   }, []);
 
   function getPhotoById(id){
-    return photosArray.find(photo => photo.id === id)?.foto
+    return "http://localhost:8000" + photosArray.find(photo => photo.id === id)?.foto
   }
 
 
