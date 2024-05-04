@@ -1,12 +1,23 @@
+import React from "react";
 import { Navbar, Nav } from "react-bootstrap";
 import LOGO from "../../assets/logoVetor.svg";
 import "../home/App.css";
 import { FaSearch } from "react-icons/fa";
 import { useState } from "react";
+import { Link } from "react-router-dom";
+import { getUserLogged } from "../../controls/requests";
 import "../home/App.css";
 
 const NavBar = () => {
   const [inputValue, setInputValue] = useState("");
+  const [user, setUser] = useState(null);
+
+  React.useEffect(() => {
+    getUserLogged()
+      .then((response) => {
+        setUser(response);
+      })
+  }, []);
 
   return (
     <Navbar expand="md" className="custom-navbar" style={{ zIndex: 2 }}>
@@ -42,8 +53,8 @@ const NavBar = () => {
           <Nav.Link href="#propriedade" className={" navbar-link"}>
             Tipo de propriedade
           </Nav.Link>
-          <Nav.Link href="Usuario" className={"navbar-link"}>
-            Olá, visitante
+          <Nav.Link href="/login" className={"navbar-link"}>
+            Olá {user ? user.username : "Visitante"}
           </Nav.Link>
         </Nav>
         <span className="navbar-text"></span>
