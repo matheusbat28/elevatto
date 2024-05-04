@@ -99,7 +99,7 @@ useEffect(() => {
       centered
     >
       <Modal.Header closeButton>
-        {mode !== "edit" && (
+        {(mode !== "edit"  && localStorage.getItem("access")) && (
           <button
             className="
         btn btn-secondary

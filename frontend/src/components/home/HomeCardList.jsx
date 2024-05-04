@@ -12,6 +12,7 @@ export default function HomeCardList() {
 
   useEffect(() => {
     getProperties().then((data) => {
+      console.log(data)
       setProperties(data);
     });
   }, []);
@@ -19,6 +20,7 @@ export default function HomeCardList() {
   return (
     <>
     <div className="col-12 mt-4 offset-10">
+      { localStorage.getItem("access") &&
     <button className="btn btn-primary " onClick={() =>{
       setSelectedHome(
         {id: 0, title: "", description: "", price: "", location: "", images: []}
@@ -26,7 +28,7 @@ export default function HomeCardList() {
       setType("edit")
       setModalShow(true);
 
-    }}>Criar anuncio</button>
+    }}>Criar anuncio</button>}
     </div>
     <div
       className="
