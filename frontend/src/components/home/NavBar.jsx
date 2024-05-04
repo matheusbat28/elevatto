@@ -1,9 +1,11 @@
+import React from "react";
 import { Navbar, Nav } from "react-bootstrap";
 import LOGO from "../../assets/logoVetor.svg";
 import "../home/App.css";
 import { FaSearch } from "react-icons/fa";
 import { useState, useEffect } from "react";
 import { Dropdown } from 'react-bootstrap';
+import {getUserLogged} from '../../controls/requests';
 import '../../index.css'
 
 const NavBar = () => {
