@@ -304,7 +304,7 @@ useEffect(() => {
                         alt=""
                         className="icon me-2"
                       />
-                      <span className=" text-center">{item.rooms} Quartos</span>
+                      <span className=" text-center">{item.bedrooms} Quartos</span>
                     </div>
                     <div className="col-5 offset-1">
                       <img
