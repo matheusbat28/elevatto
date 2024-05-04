@@ -161,5 +161,10 @@ CORS_ALLOWED_ORIGINS = [
 CORS_ALLOW_CREDENTIALS = True
 
 DJOSER = {
+    'SERIALIZERS': {
+        'user_create': 'accounts.serializers.CustomUserSerializer',
+        'current_user': 'accounts.serializers.CustomUserSerializer',
+        'user': 'accounts.serializers.CustomUserSerializer',
+    }
     
 }
