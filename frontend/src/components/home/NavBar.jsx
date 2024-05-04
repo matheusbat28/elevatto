@@ -5,14 +5,22 @@ import "../home/App.css";
 import { FaSearch } from "react-icons/fa";
 import { useState, useEffect } from "react";
 import { Dropdown } from 'react-bootstrap';
-import {getUserLogged} from '../../controls/requests';
+import { getUserLogged } from '../../controls/requests';
 import '../../index.css'
 
 const NavBar = () => {
   const [inputValue, setInputValue] = useState("");
   const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth <= 575.98);
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
+
+    getUserLogged().then((response) => {
+      setUser(response);
+    }).catch((error) => {
+      setUser(null);
+    });
+
     const handleResize = () => {
       setIsSmallScreen(window.innerWidth <= 575.98);
     };
@@ -22,7 +30,10 @@ const NavBar = () => {
     return () => {
       window.removeEventListener('resize', handleResize);
     };
+
   }, []);
+
+  
 
   return (
     <Navbar expand="md" className="custom-navbar" style={{ zIndex: 2 }}>
@@ -59,13 +70,13 @@ const NavBar = () => {
             Tipo de propriedade
           </Nav.Link>
           <Nav.Link href="Usuario" className={"navbar-link"}>
-            Olá, visitante
+            Olá, {user ? user.username : "Visitante"}
           </Nav.Link>
         </Nav>
         {isSmallScreen && (
           <>
             <Dropdown className="nav-item dropdown-container">
-               <Dropdown.Toggle className="nav-link" id="dropdown-basic" >
+              <Dropdown.Toggle className="nav-link" id="dropdown-basic" >
                 Locais
               </Dropdown.Toggle>
 
