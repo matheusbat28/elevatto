@@ -11,6 +11,7 @@ export default function HouseModal(props) {
       switch (action.type) {
         case "SET":
           return action.item;
+
         case "ADD_IMAGE":
           return { ...state, images: [...state.images, action.image] };
         case "REMOVE_IMAGE":
@@ -71,54 +72,40 @@ export default function HouseModal(props) {
   const [mode, setMode] = useState("display");
 
 useEffect(() => {
-  getPhotos(
-    props.images
-  ).then(
-    (data) => {
-      console.log(data)
-      let images = []
-      data.forEach(element => {
-       // console.log(element.foto
-       images.push(
-        "http://localhost:8000" + element.foto)
-      });
-      setItem({
-       ...item,
-        images,
-      });
-    }
-  )
+ 
   }, [props])
 
 
 
 
   useEffect(() => {
-     console.log({
-
+    let newItem = {
       description: props.description,
-      bedrooms: props.bedrooms
-,
+      bedrooms: props.bedrooms,
       price: props.price,
-     // images: props.images,
+     images: [],
       title: props.title,
       bathrooms: props.bathrooms,
       parking: props.parking,
       area: props.area,
-    })
-    setItem({
-
-      description: props.description,
-      bedrooms: props.bedrooms
-,
-      price: props.price,
-     // images: props.images,
-      title: props.title,
-      bathrooms: props.bathrooms,
-      parking: props.parking,
-      area: props.area,
-    });
+    };
+    getPhotos(
+      props.images
+    ).then(
+      (data) => {
+        console.log(data)
+        let images = []
+        data.forEach(element => {
+         // console.log(element.foto
+         images.push(
+          "http://localhost:8000" + element.foto)
+        });
+        newItem.images = images
+        setItem(newItem)
+      }
+    )
   }, [props]);
+
   const [fileInput, setFileInput] = useState(null);
 
 
@@ -386,8 +373,8 @@ useEffect(() => {
                 style: "currency",
                 currency: "BRL",
               }).replaceAll(
-                ".",
-                ","
+                ",",
+                "."
               )
             } R$</span>
           </p>

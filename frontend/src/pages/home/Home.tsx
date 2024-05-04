@@ -6,10 +6,18 @@ import SubHeader from "../../components/home/subHeader";
 import WhatsAppButton from "../../components/whatsappButton";
 import Filters from "../../components/home/filtersHome";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { getProperties } from "../../controls/requests";
 
 export default function Home() {
 
   document.title = "Home | Elevatto";
+  const [properties, setProperties] = React.useState([]);
+
+  React.useEffect(() => {
+    getProperties().then((response) => {
+      setProperties(response);
+    });
+  }, []);
 
   return (
     <div>
@@ -17,7 +25,7 @@ export default function Home() {
       <NavBar style={{ zIndex: 2 }} />
       <Filters />
       <SubHeader />
-      <HomeCardList />
+      <HomeCardList properties={properties} />
       <Footer />
     </div>
   )
