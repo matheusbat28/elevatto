@@ -23,9 +23,9 @@ export default function Home() {
     <div>
       <WhatsAppButton />
       <NavBar style={{ zIndex: 2 }} />
-      <Filters />
+      <Filters properties={properties} setProperties={setProperties} />
       <SubHeader />
-      <HomeCardList properties={properties} />
+      <HomeCardList properties={properties} setProperties={setProperties} />
       <Footer />
     </div>
   )
