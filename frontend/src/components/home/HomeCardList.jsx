@@ -46,7 +46,7 @@ export default function HomeCardList() {
   
   return (
     <>
-    <div className="col-12 mt-4">
+    <div className="col-12 mt-4 text-right pe-4">
       { localStorage.getItem("access") &&
     <button className="btn btn-primary " onClick={() =>{
       setSelectedHome(
