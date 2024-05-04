@@ -82,7 +82,10 @@ export default function HomeCard(props) {
           <Button  className="col-6 contact-button" >
             Contato
           </Button>
-          <span className="col-6 text-center money-text">R$ {props.price}</span>
+          <span className="col-6 text-center money-text">R$ {props.price.replaceAll(
+                ".",
+                ","
+              )}</span>
         </p>
       </CardFooter>
     </Card>

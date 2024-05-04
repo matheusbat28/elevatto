@@ -3,6 +3,7 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import CarouselModal from "./CarouselModal";
 import { FaArrowUp, FaArrowDown } from "react-icons/fa";
+import {getPhotos} from "../../controls/requests"
 
 export default function HouseModal(props) {
   const [item, action] = useReducer(
@@ -22,15 +23,15 @@ export default function HouseModal(props) {
       }
     },
     {
-      locate: props.title,
-      desc: props.desc,
-      bedrooms: props.bedrooms,
-      price: props.price,
-      images: props.images,
-      title: props.title,
-      bathrooms: props.bathrooms,
-      parking: props.parking,
-      area: props.area,
+      locate: "",
+      description: "",
+      bedrooms: "",
+      price: "",
+      images: "",
+      title: "",
+      bathrooms:  "",
+      parking: "",
+      area: "",
     }
   );
 
@@ -70,18 +71,48 @@ export default function HouseModal(props) {
   const [mode, setMode] = useState("display");
 
 useEffect(() => {
-  setMode(props.type)
-  }, [props.type])
+  getPhotos(
+    props.images
+  ).then(
+    (data) => {
+      console.log(data)
+      let images = []
+      data.forEach(element => {
+       // console.log(element.foto
+       images.push(
+        "http://localhost:8000" + element.foto)
+      });
+      setItem({
+       ...item,
+        images,
+      });
+    }
+  )
+  }, [props])
+
+
 
 
   useEffect(() => {
-    setItem({
+     console.log({
 
-      desc: props.desc,
+      description: props.description,
       bedrooms: props.bedrooms
 ,
       price: props.price,
-      images: props.images,
+     // images: props.images,
+      title: props.title,
+      bathrooms: props.bathrooms,
+      parking: props.parking,
+      area: props.area,
+    })
+    setItem({
+
+      description: props.description,
+      bedrooms: props.bedrooms
+,
+      price: props.price,
+     // images: props.images,
       title: props.title,
       bathrooms: props.bathrooms,
       parking: props.parking,
@@ -89,6 +120,8 @@ useEffect(() => {
     });
   }, [props]);
   const [fileInput, setFileInput] = useState(null);
+
+
 
  
 
@@ -215,8 +248,8 @@ useEffect(() => {
                   placeholder="Titulo"
                 />
                 <textarea
-                  value={item.desc}
-                  onChange={(e) => setItem({ ...item, desc: e.target.value })}
+                  value={item.description}
+                  onChange={(e) => setItem({ ...item,  description: e.target.value })}
                   className="form-control mb-3"
                   rows={7} // Add this line to set the initial number of rows
                   placeholder="Descrição"
@@ -294,8 +327,8 @@ useEffect(() => {
             ) : (
               // Render display mode elements here
               <div>
-                <h4 className="text-center  mb-3">{item.locate}</h4>
-                <p className="modal-text-desc">{item.desc}</p>
+                <h4 className="text-center  mb-3">{item.title}</h4>
+                <p className="modal-text-desc">{item.description}</p>
                 <div className="bottom-element ">
                   <p className="col-12 d-flex">
                     <div className="col-5 offset-1">
@@ -352,8 +385,11 @@ useEffect(() => {
               item.price.toLocaleString("pt-BR", {
                 style: "currency",
                 currency: "BRL",
-              })
-            }</span>
+              }).replaceAll(
+                ".",
+                ","
+              )
+            } R$</span>
           </p>
           <Button className="contact-button">Entrar em contato</Button>
           

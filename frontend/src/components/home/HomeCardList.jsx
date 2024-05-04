@@ -10,7 +10,7 @@ export default function HomeCardList() {
   const [type, setType] = useState("display")
   const [properties, setProperties] = useState([]);
   const [photosArray, setPhotosArray] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     getProperties().then((data) => {
@@ -26,9 +26,9 @@ export default function HomeCardList() {
       ).then((photosArray) => {
         setPhotosArray(photosArray);
         console.log(photosArray);
-        if(photosArray.length >= firstImages.length){
-          setLoading(false)
-        }
+        // if(photosArray.length >= firstImages.length){
+        //   setLoading(false)
+        // }
 
         
       })
@@ -88,6 +88,9 @@ export default function HomeCardList() {
       )}
       
     {  selectedHome && <HomeModal show={modalShow} onHide={() => setModalShow(false)} 
+    images={
+      selectedHome.photos
+}
      type={type}
         {...selectedHome}
       />}
