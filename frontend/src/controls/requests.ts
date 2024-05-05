@@ -113,7 +113,6 @@ export async function deleteProperty(id: string) {
 
 // get photos
 export async function getPhotos(array: Array) {
-  console.log(array)
 
   let ids = String("")
      //parse array to string

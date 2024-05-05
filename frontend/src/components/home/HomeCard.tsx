@@ -9,15 +9,18 @@ import {
   Button,
 } from "react-bootstrap";
 
-export default function HomeCard(props) {
+export default function HomeCard(props: any) {
+  React.useEffect(() => {
+  }, []);
+
   return (
-    <Card className="home-card "     onClick={() => {
+    <Card className="home-card " onClick={() => {
       props.setSelectedHome(props.item);
       props.setType("display")
       props.setModalShow(true);
     }}>
       <CardBody>
-       {props?.photo && <CardImg src={ props.photo} alt="Card image cap" className="top-card-image"/> }
+        {props?.photo && <CardImg src={props.photo} alt="Card image cap" className="top-card-image" />}
         <p className=" align-items-center d-flex justify-content-center mt-1">
           <img
             src="https://cdn-icons-png.flaticon.com/128/535/535239.png"
@@ -44,7 +47,7 @@ export default function HomeCard(props) {
                   className="icon me-2"
                 />
                 <span className=" text-center">{props.bedrooms
-} Quartos</span>
+                } Quartos</span>
               </div>
               <div className="col-6">
                 <img
@@ -78,13 +81,13 @@ export default function HomeCard(props) {
       </CardBody>
       <CardFooter>
         <p className="col-12 d-flex  align-items-center">
-          <Button  className="col-6 contact-button" >
+          <Button className="col-6 contact-button" >
             Contato
           </Button>
           <span className="col-6 text-center money-text">R$ {props.price.replaceAll(
-                ".",
-                ","
-              )}</span>
+            ".",
+            ","
+          )}</span>
         </p>
       </CardFooter>
     </Card>

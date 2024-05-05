@@ -22,10 +22,10 @@ export default function Home() {
   return (
     <div>
       <WhatsAppButton />
-      <NavBar style={{ zIndex: 2 }} />
-      <Filters />
+      <NavBar style={{ zIndex: 2 }} properties={properties} setProperties={setProperties} />
+      <Filters properties={properties} setProperties={setProperties} />
       <SubHeader />
-      <HomeCardList properties={properties} />
+      <HomeCardList properties={properties} setProperties={setProperties} />
       <Footer />
     </div>
   )
