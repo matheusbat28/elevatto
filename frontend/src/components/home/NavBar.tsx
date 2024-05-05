@@ -87,6 +87,31 @@ export default function NavBar(props: any) {
 
   };
 
+  const handleInputChange = (e: any) => {
+    const value = e.target.value.toLowerCase();
+    setInputValue(value);
+
+    const filteredProperties = props.properties.filter((property: any) => {
+      return Object.values(property).some((propValue: any) => {
+        if (typeof propValue === 'string') {
+          return propValue.toLowerCase().includes(value);
+        }
+        if (typeof propValue === 'number') {
+          return propValue.toString().includes(value);
+        }
+        if (Array.isArray(propValue)) {
+          return propValue.some((arrayValue: any) => arrayValue.toString().toLowerCase().includes(value));
+        }
+        if (typeof propValue === 'object') {
+          return JSON.stringify(propValue).toLowerCase().includes(value);
+        }
+        return false;
+      });
+    });
+
+    props.setProperties(filteredProperties);
+  };
+
   return (
     <Navbar expand="md" className="custom-navbar" style={{ zIndex: 2 }}>
       <Navbar.Brand href="/">
@@ -103,7 +128,7 @@ export default function NavBar(props: any) {
                 <input
                   type="text"
                   className="form-control"
-                  onChange={(e) => setInputValue(e.target.value)}
+                  onChange={handleInputChange}
                 />
                 {inputValue === "" && (
                   <div className="input-group-append">
