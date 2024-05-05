@@ -12,6 +12,7 @@ import {
 
 
 export default function HouseModal(props) {
+  const [fileImage, setFileImage] = useState([]);
   const [item, action] = useReducer(
     (state, action) => {
       switch (action.type) {
@@ -41,6 +42,7 @@ export default function HouseModal(props) {
       area: "",
     }
   );
+
 
   const handleAddImage = (image) => {
     action({ type: "ADD_IMAGE", image });
@@ -89,14 +91,14 @@ export default function HouseModal(props) {
 
   function postInfo(item) {
     const formData = new FormData();
-  
+
     // Função para converter URLs de Blob em Blob
     const urlToBlob = async (url) => {
       const response = await fetch(url);
       const blob = await response.blob();
       return blob;
     };
-  
+
     // Função para adicionar imagens ao FormData
     const addImagesToFormData = async () => {
       const formData = new FormData();
@@ -105,18 +107,40 @@ export default function HouseModal(props) {
         const file = new File([blob], 'image.jpg', { type: blob.type });
         formData.append('images', file);
       }
-  
+
       return formData;
     };
-  
-    addImagesToFormData().then(() => {
+
+    // addImagesToFormData().then(() => {
+    //   createPhoto(formData).then((data) => {
+    //     const photosId = data.map((photo) => photo.id);
+    //     const newItem = {
+    //       description: item.description,
+    //       bedrooms: item.bedrooms,
+    //       price: item.price,
+    //       images: photosId,
+    //       title: item.title,
+    //       bathrooms: item.bathrooms,
+    //       parking: item.parking,
+    //       area: item.area,
+    //     };
+    //     createProperty(newItem).then((data) => {
+    //       console.log(data);
+    //       props.onHide();
+    //     });
+    //   });
+    // });
+
+
+    fileImage.forEach((file) => {
+      const formData = new FormData();
+      formData.append("foto", file);
       createPhoto(formData).then((data) => {
-        const photosId = data.map((photo) => photo.id);
         const newItem = {
           description: item.description,
           bedrooms: item.bedrooms,
           price: item.price,
-          images: photosId,
+          images: data.id,
           title: item.title,
           bathrooms: item.bathrooms,
           parking: item.parking,
@@ -127,13 +151,11 @@ export default function HouseModal(props) {
           props.onHide();
         });
       });
+
+
     });
+
   }
-  
-
-
-
-
 
 
   useEffect(() => {
@@ -198,6 +220,7 @@ export default function HouseModal(props) {
                       <button
                         onClick={() => {
                           if (fileInput) {
+                            setFileImage([...fileImage, fileInput]);
                             handleAddImage(URL.createObjectURL(fileInput));
                             setFileInput(null);
                           }
@@ -452,7 +475,7 @@ export default function HouseModal(props) {
             </Button>
             <Button
               onClick={() => {
-               // setMode("display");
+                // setMode("display");
                 postInfo(item);
               }}
               className="btn-primary"

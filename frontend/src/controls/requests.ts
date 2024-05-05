@@ -115,23 +115,23 @@ export async function deleteProperty(id: string) {
 export async function getPhotos(array: Array) {
 
   let ids = String("")
-     //parse array to string
+  //parse array to string
   for (let i = 0; i < array.length; i++) {
     ids = ids + array[i] + ","
   }
   ids = ids.substring(0, ids.length - 1);
- 
+
   let response = Object(
     {
       data: []
     }
   )
-if(
-  ids.length > 0
-) {
-  response =  await axios.get("photos/?ids=" + ids);
-}
-   return response.data;
+  if (
+    ids.length > 0
+  ) {
+    response = await axios.get("photos/?ids=" + ids);
+  }
+  return response.data;
 }
 
 // get photo by id
@@ -142,11 +142,9 @@ export async function getPhoto(id: string) {
 
 // create photo
 export async function createPhoto(data: any) {
-  console.log(data)
   isAuthenticated();
   const access = localStorage.getItem("access");
-  const response = await axios.post("photos/", 
-{foto:data}, {
+  const response = await axios.post("photos/", data, {
     headers: {
       Authorization: `Bearer ${access}`,
       'Content-Type': 'multipart/form-data'
@@ -159,7 +157,7 @@ export async function createPhoto(data: any) {
 export async function updatePhoto(id: string, data: any) {
   isAuthenticated();
   const access = localStorage.getItem("access");
-  
+
   const response = await axios.put(`photos/${id}/`, data, {
     headers: {
       Authorization: `Bearer ${access}`,
@@ -180,5 +178,5 @@ export async function deletePhoto(id: string) {
       Authorization: `Bearer ${access}`,
     },
   });
- return response.data;
+  return response.data;
 }
