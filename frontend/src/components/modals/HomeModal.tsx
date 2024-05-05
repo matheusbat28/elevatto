@@ -7,11 +7,13 @@ import {
   getPhotos,
   createPhoto,
   deletePhoto,
+  updateProperty,
   createProperty,
+  deleteProperty
 } from "../../controls/requests";
 
-
 export default function HouseModal(props) {
+  console.log(props)
   const [fileImage, setFileImage] = useState([]);
   const [item, action] = useReducer(
     (state, action) => {
@@ -25,6 +27,25 @@ export default function HouseModal(props) {
           return {
             ...state,
             images: state.images.filter((img, index) => index !== action.index),
+          };
+        case "RESET_IMAGES":
+          return {
+            ...state,
+            images: [],
+            imagesIds: [],
+          };
+        case "RESET":
+          return {
+            ...state,
+            description: "",
+            bedrooms: "",
+            price: "",
+            images: [],
+            imagesIds: [],
+            title: "",
+            bathrooms: "",
+            parking: "",
+            area: "",
           };
         default:
           return state;
@@ -43,7 +64,6 @@ export default function HouseModal(props) {
     }
   );
 
-
   const handleAddImage = (image) => {
     action({ type: "ADD_IMAGE", image });
   };
@@ -54,6 +74,14 @@ export default function HouseModal(props) {
 
   const setItem = (item) => {
     action({ type: "SET", item });
+  };
+
+  const handleResetImages = () => {
+    action({ type: "RESET_IMAGES" });
+  };
+
+  const handleReset = () => {
+    action({ type: "RESET" });
   };
 
   const handleMoveImageUp = (index) => {
@@ -77,11 +105,6 @@ export default function HouseModal(props) {
   };
   const [mode, setMode] = useState("display");
 
-  function sendPhotos(photo) {
-    createPhoto(photo).then((data) => {
-      return data.id;
-    });
-  }
 
   // function removePhotos(id) {
   //   deletePhoto(id).then((data) => {
@@ -89,80 +112,81 @@ export default function HouseModal(props) {
   //   });
   // }
 
-  function postInfo(item) {
-    const formData = new FormData();
-
-    // Função para converter URLs de Blob em Blob
-    const urlToBlob = async (url) => {
-      const response = await fetch(url);
-      const blob = await response.blob();
-      return blob;
-    };
-
-    // Função para adicionar imagens ao FormData
-    const addImagesToFormData = async () => {
-      const formData = new FormData();
-      for (const imageUrl of item.images) {
-        const blob = await urlToBlob(imageUrl);
-        const file = new File([blob], 'image.jpg', { type: blob.type });
-        formData.append('images', file);
-      }
-
-      return formData;
-    };
-
-    // addImagesToFormData().then(() => {
-    //   createPhoto(formData).then((data) => {
-    //     const photosId = data.map((photo) => photo.id);
-    //     const newItem = {
-    //       description: item.description,
-    //       bedrooms: item.bedrooms,
-    //       price: item.price,
-    //       images: photosId,
-    //       title: item.title,
-    //       bathrooms: item.bathrooms,
-    //       parking: item.parking,
-    //       area: item.area,
-    //     };
-    //     createProperty(newItem).then((data) => {
-    //       console.log(data);
-    //       props.onHide();
-    //     });
-    //   });
-    // });
-
-
-    fileImage.forEach((file) => {
+  const sendPhotos = async () => {
+    const promises = fileImage.map((file) => {
       const formData = new FormData();
       formData.append("foto", file);
-      createPhoto(formData).then((data) => {
-        const newItem = {
-          description: item.description,
-          bedrooms: item.bedrooms,
-          price: item.price,
-          photos: [data.id],
-          title: item.title,
-          bathrooms: item.bathrooms,
-          parking: item.parking,
-          area: item.area,
-        };
-        createProperty(newItem).then((data) => {
-          console.log(data);
-          props.onHide();
-        }).catch((error) => {
-          console.log(error);
-        });
-      });
-
-
+      return createPhoto(formData);
     });
 
+    const results = await Promise.all(promises);
+    const ids = results.map((data) => data.id);
+    console.log(ids);
+    return ids;
+  };
+
+  function deleteInfo(){
+   deleteProperty(props.id).then((data) => {
+      console.log(data);
+      props.onHide();
+    });
+  }
+
+  function putInfo(item){
+    sendPhotos().then((ids) => {
+      const newItem = {
+        description: item.description,
+        bedrooms: item.bedrooms,
+        price: item.price,
+        photos: ids,
+        title: item.title,
+        bathrooms: item.bathrooms,
+        parking: item.parking,
+        area: item.area,
+      };
+     updateProperty(props.id, newItem)
+        .then((data) => {
+          console.log(data);
+          props.onHide();
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    });
   }
 
 
+  function postInfo(item) {
+    sendPhotos().then((ids) => {
+      const newItem = {
+        description: item.description,
+        bedrooms: item.bedrooms,
+        price: item.price,
+        photos: ids,
+        title: item.title,
+        bathrooms: item.bathrooms,
+        parking: item.parking,
+        area: item.area,
+      };
+      createProperty(newItem)
+        .then((data) => {
+          console.log(data);
+          props.onHide();
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    });
+  }
+
   useEffect(() => {
-    setMode(props.type)
-    let newItem = {
+    if (props.type === "new") {
+      handleReset();
+    } 
+      setMode(props.type);
+    
+
+    const newItem = {
       description: props.description,
       bedrooms: props.bedrooms,
       price: props.price,
@@ -183,6 +207,9 @@ export default function HouseModal(props) {
     });
   }, [props]);
 
+
+
+
   const [fileInput, setFileInput] = useState(null);
 
   return (
@@ -194,6 +221,7 @@ export default function HouseModal(props) {
     >
       <Modal.Header closeButton>
         {mode !== "edit" && localStorage.getItem("access") && (
+          <>
           <button
             className="
         btn btn-secondary
@@ -204,12 +232,22 @@ export default function HouseModal(props) {
           >
             Modo de edição
           </button>
+          <button
+                       className="
+        btn btn-danger ms-4
+        "
+            onClick={() => {
+              deleteInfo()
+            }}>
+              Excluir
+          </button>
+          </>
         )}
       </Modal.Header>
       <Modal.Body className="d-flex flex-column">
         <div className="images-flex flex-grow-1">
           <div className="images-carousel">
-            {mode === "edit" ? (
+            {mode === "edit" || mode === "new"? (
               <div>
                 <div>
                   <input
@@ -243,6 +281,7 @@ export default function HouseModal(props) {
                         onClick={() => {
                           if (fileInput) {
                             setFileInput(null);
+
                           }
                         }}
                         className="btn btn-danger col-12 "
@@ -301,7 +340,7 @@ export default function HouseModal(props) {
           </div>
 
           <form className="  text-carousel text-black flex-grow-1">
-            {mode === "edit" ? (
+            {mode === "edit" || mode === "new" ? (
               // Render edit mode elements here
               <div
                 style={{ display: "flex", flexDirection: "column" }}
@@ -448,7 +487,7 @@ export default function HouseModal(props) {
         </div>
       </Modal.Body>
       <Modal.Footer>
-        {mode !== "edit" ? (
+        {mode === "display" ? (
           <>
             <p>
               <span className="text-center me-3 money-text">
@@ -477,8 +516,11 @@ export default function HouseModal(props) {
             </Button>
             <Button
               onClick={() => {
-                // setMode("display");
+                if(mode === "new"){
                 postInfo(item);
+                } else if( mode === "edit"){
+                  putInfo(item);
+                }
               }}
               className="btn-primary"
             >

@@ -41,7 +41,7 @@ export default function HomeCardList(props: any) {
             setSelectedHome(
               { title: "", description: "", price: "", location: "", images: [] }
             );
-            setType("edit")
+            setType("new")
             setModalShow(true);
 
           }}>Criar anuncio</button>}
