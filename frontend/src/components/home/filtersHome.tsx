@@ -59,7 +59,7 @@ export default function SubHeader(props: any) {
             setStatusBtn(true);
         }
         else {
-            window.location.reload();   
+            window.location.reload();
         }
 
     };
@@ -143,8 +143,20 @@ export default function SubHeader(props: any) {
                     </Dropdown.Menu>
                 </Dropdown>
 
-                <button className="dropdown-container" style={{ margin: '0 12px', padding: '5px 20px', height: '40px', borderRadius: '5px', border: 'none', backgroundColor: '#FEBD59', color: 'white' }}
-                    onClick={handleFilter}> {statusBtn ? 'Limpar' : 'Buscar'} </button>
+                <button
+                    className="dropdown-container"
+                    style={{
+                        margin: '0 12px',
+                        padding: '5px 20px',
+                        height: '40px',
+                        borderRadius: '5px',
+                        border: 'none',
+                        backgroundColor: statusBtn ? '#fe5959' : '#FEBD59',
+                        color: 'white'
+                    }}
+                    onClick={handleFilter}>
+                    {statusBtn ? 'Limpar' : 'Buscar'}
+                </button>
             </div>
         </div>
 
