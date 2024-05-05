@@ -140,7 +140,7 @@ export default function HouseModal(props) {
           description: item.description,
           bedrooms: item.bedrooms,
           price: item.price,
-          images: data.id,
+          photos: [data.id],
           title: item.title,
           bathrooms: item.bathrooms,
           parking: item.parking,
@@ -149,6 +149,8 @@ export default function HouseModal(props) {
         createProperty(newItem).then((data) => {
           console.log(data);
           props.onHide();
+        }).catch((error) => {
+          console.log(error);
         });
       });
 
