@@ -31,6 +31,9 @@ export default function HomeCardList(props) {
   }
 
 
+  
+
+
   return (
     <>
       <div className="col-12 mt-4 text-right pe-4">

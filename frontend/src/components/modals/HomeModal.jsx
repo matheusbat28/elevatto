@@ -3,7 +3,13 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import CarouselModal from "./CarouselModal";
 import { FaArrowUp, FaArrowDown } from "react-icons/fa";
-import {getPhotos} from "../../controls/requests"
+import {
+  getPhotos,
+  createPhoto,
+  deletePhoto,
+  createProperty,
+} from "../../controls/requests";
+
 
 export default function HouseModal(props) {
   const [item, action] = useReducer(
@@ -24,19 +30,17 @@ export default function HouseModal(props) {
       }
     },
     {
-      locate: "",
       description: "",
       bedrooms: "",
       price: "",
-      images: "",
+      images: [],
+      imagesIds: [],
       title: "",
-      bathrooms:  "",
+      bathrooms: "",
       parking: "",
       area: "",
     }
   );
-
-
 
   const handleAddImage = (image) => {
     action({ type: "ADD_IMAGE", image });
@@ -71,46 +75,91 @@ export default function HouseModal(props) {
   };
   const [mode, setMode] = useState("display");
 
-useEffect(() => {
- 
-  }, [props])
+  function sendPhotos(photo) {
+    createPhoto(photo).then((data) => {
+      return data.id;
+    });
+  }
+
+  // function removePhotos(id) {
+  //   deletePhoto(id).then((data) => {
+  //     console.log(data);
+  //   });
+  // }
+
+  function postInfo(item) {
+    const formData = new FormData();
+  
+    // Função para converter URLs de Blob em Blob
+    const urlToBlob = async (url) => {
+      const response = await fetch(url);
+      const blob = await response.blob();
+      return blob;
+    };
+  
+    // Função para adicionar imagens ao FormData
+    const addImagesToFormData = async () => {
+      const formData = new FormData();
+      for (const imageUrl of item.images) {
+        const blob = await urlToBlob(imageUrl);
+        const file = new File([blob], 'image.jpg', { type: blob.type });
+        formData.append('images', file);
+      }
+  
+      return formData;
+    };
+  
+    addImagesToFormData().then(() => {
+      createPhoto(formData).then((data) => {
+        const photosId = data.map((photo) => photo.id);
+        const newItem = {
+          description: item.description,
+          bedrooms: item.bedrooms,
+          price: item.price,
+          images: photosId,
+          title: item.title,
+          bathrooms: item.bathrooms,
+          parking: item.parking,
+          area: item.area,
+        };
+        createProperty(newItem).then((data) => {
+          console.log(data);
+          props.onHide();
+        });
+      });
+    });
+  }
+  
+
+
 
 
 
 
   useEffect(() => {
+    setMode(props.type)
     let newItem = {
       description: props.description,
       bedrooms: props.bedrooms,
       price: props.price,
-     images: [],
+      images: [],
       title: props.title,
       bathrooms: props.bathrooms,
       parking: props.parking,
       area: props.area,
     };
-    getPhotos(
-      props.images
-    ).then(
-      (data) => {
-        console.log(data)
-        let images = []
-        data.forEach(element => {
-         // console.log(element.foto
-         images.push(
-          "http://localhost:8000" + element.foto)
-        });
-        newItem.images = images
-        setItem(newItem)
-      }
-    )
+    getPhotos(props.images).then((data) => {
+      let images = [];
+      data.forEach((element) => {
+        // console.log(element.foto
+        images.push("http://localhost:8000" + element.foto);
+      });
+      newItem.images = images;
+      setItem(newItem);
+    });
   }, [props]);
 
   const [fileInput, setFileInput] = useState(null);
-
-
-
- 
 
   return (
     <Modal
@@ -120,7 +169,7 @@ useEffect(() => {
       centered
     >
       <Modal.Header closeButton>
-        {(mode !== "edit"  && localStorage.getItem("access")) && (
+        {mode !== "edit" && localStorage.getItem("access") && (
           <button
             className="
         btn btn-secondary
@@ -179,41 +228,47 @@ useEffect(() => {
                   )}
                 </div>
                 <hr className="text-black" />
-                {item.images && item.images[0] && item.images.map((image, index) => (
-                  <div key={index} className=" mt-4">
-                    {index === 0 && (
-                      <h4 className="text-center text-black">
-                        imagem principal{" "}
-                      </h4>
-                    )}
-                    {index > 0 && (
+                {item.images &&
+                  item.images[0] &&
+                  item.images.map((image, index) => (
+                    <div key={index} className=" mt-4">
+                      {index === 0 && (
+                        <h4 className="text-center text-black">
+                          imagem principal{" "}
+                        </h4>
+                      )}
+                      {index > 0 && (
+                        <button
+                          onClick={() => handleMoveImageUp(index)}
+                          className="btn btn-outline-dark col-12 "
+                          style={{ backgroundColor: "transparent" }}
+                        >
+                          <FaArrowUp color="black" />
+                        </button>
+                      )}
                       <button
-                        onClick={() => handleMoveImageUp(index)}
-                        className="btn btn-outline-dark col-12 "
-                        style={{ backgroundColor: "transparent" }}
+                        onClick={() => handleRemoveImage(index)}
+                        className="btn btn-danger col-12"
                       >
-                        <FaArrowUp color="black" />
+                        Remover
                       </button>
-                    )}
-                    <button
-                      onClick={() => handleRemoveImage(index)}
-                      className="btn btn-danger col-12"
-                    >
-                      Remover
-                    </button>
 
-                    <img src={image} alt="" className="fixed-carousel-image" />
-                    {index < item.images.length - 1 && (
-                      <button
-                        onClick={() => handleMoveImageDown(index)}
-                        className="col-12 btn btn-outline-dark"
-                        style={{ backgroundColor: "transparent" }}
-                      >
-                        <FaArrowDown color="black" />
-                      </button>
-                    )}
-                  </div>
-                ))}
+                      <img
+                        src={image}
+                        alt=""
+                        className="fixed-carousel-image"
+                      />
+                      {index < item.images.length - 1 && (
+                        <button
+                          onClick={() => handleMoveImageDown(index)}
+                          className="col-12 btn btn-outline-dark"
+                          style={{ backgroundColor: "transparent" }}
+                        >
+                          <FaArrowDown color="black" />
+                        </button>
+                      )}
+                    </div>
+                  ))}
               </div>
             ) : (
               <CarouselModal images={item.images} />
@@ -229,14 +284,16 @@ useEffect(() => {
               >
                 <input
                   type="text"
-                  value={item.locate}
-                  onChange={(e) => setItem({ ...item, locate: e.target.value })}
+                  value={item.title}
+                  onChange={(e) => setItem({ ...item, title: e.target.value })}
                   className="form-control mb-3 mt-4"
                   placeholder="Titulo"
                 />
                 <textarea
                   value={item.description}
-                  onChange={(e) => setItem({ ...item,  description: e.target.value })}
+                  onChange={(e) =>
+                    setItem({ ...item, description: e.target.value })
+                  }
                   className="form-control mb-3"
                   rows={7} // Add this line to set the initial number of rows
                   placeholder="Descrição"
@@ -249,9 +306,9 @@ useEffect(() => {
                       <span className="col-8">Quartos:</span>
                       <input
                         type="number"
-                        value={item.rooms}
+                        value={item.bedrooms}
                         onChange={(e) =>
-                          setItem({ ...item, rooms: e.target.value })
+                          setItem({ ...item, bedrooms: e.target.value })
                         }
                         className="form-control mb-3 me-3 col-4"
                       />
@@ -324,7 +381,9 @@ useEffect(() => {
                         alt=""
                         className="icon me-2"
                       />
-                      <span className=" text-center">{item.bedrooms} Quartos</span>
+                      <span className=" text-center">
+                        {item.bedrooms} Quartos
+                      </span>
                     </div>
                     <div className="col-5 offset-1">
                       <img
@@ -364,24 +423,23 @@ useEffect(() => {
         </div>
       </Modal.Body>
       <Modal.Footer>
-
         {mode !== "edit" ? (
           <>
-          <p>
-            <span className="text-center me-3 money-text"> {
-              item.price.toLocaleString("pt-BR", {
-                style: "currency",
-                currency: "BRL",
-              }).replaceAll(
-                ",",
-                "."
-              )
-            } R$</span>
-          </p>
-          <Button className="contact-button">Entrar em contato</Button>
-          
+            <p>
+              <span className="text-center me-3 money-text">
+                {" "}
+                {item.price
+                  .toLocaleString("pt-BR", {
+                    style: "currency",
+                    currency: "BRL",
+                  })
+                  .replaceAll(",", ".")}{" "}
+                R$
+              </span>
+            </p>
+            <Button className="contact-button">Entrar em contato</Button>
           </>
-                  ) : (
+        ) : (
           <>
             <Button
               onClick={() => {
@@ -394,11 +452,13 @@ useEffect(() => {
             </Button>
             <Button
               onClick={() => {
-                setMode("display");
-                //props.onSave(item);
+               // setMode("display");
+                postInfo(item);
               }}
               className="btn-primary"
-            >Salvar</Button>
+            >
+              Salvar
+            </Button>
           </>
         )}
       </Modal.Footer>

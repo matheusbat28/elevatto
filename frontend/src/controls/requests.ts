@@ -143,9 +143,11 @@ export async function getPhoto(id: string) {
 
 // create photo
 export async function createPhoto(data: any) {
+  console.log(data)
   isAuthenticated();
   const access = localStorage.getItem("access");
-  const response = await axios.post("photos/", data, {
+  const response = await axios.post("photos/", 
+{foto:data}, {
     headers: {
       Authorization: `Bearer ${access}`,
       'Content-Type': 'multipart/form-data'
@@ -158,6 +160,7 @@ export async function createPhoto(data: any) {
 export async function updatePhoto(id: string, data: any) {
   isAuthenticated();
   const access = localStorage.getItem("access");
+  
   const response = await axios.put(`photos/${id}/`, data, {
     headers: {
       Authorization: `Bearer ${access}`,
@@ -171,10 +174,12 @@ export async function updatePhoto(id: string, data: any) {
 export async function deletePhoto(id: string) {
   isAuthenticated();
   const access = localStorage.getItem("access");
+
+  console.log("idid", id)
   const response = await axios.delete(`photos/${id}/`, {
     headers: {
       Authorization: `Bearer ${access}`,
     },
   });
-  return response.data;
+ return response.data;
 }

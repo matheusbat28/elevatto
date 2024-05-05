@@ -10,7 +10,6 @@ import {
 } from "react-bootstrap";
 
 export default function HomeCard(props) {
-  console.log(props.photo)
   return (
     <Card className="home-card "     onClick={() => {
       props.setSelectedHome(props.item);
