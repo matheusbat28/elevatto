@@ -10,6 +10,13 @@ export default function SubHeader(props: any) {
     const [price, setPrice] = React.useState([]);
     const [toggleBathrooms, setToggleBathrooms] = React.useState(false);
     const [toggleParking, setToggleParking] = React.useState(false);
+    const [selectedPrice, setSelectedPrice] = React.useState(null);
+    const [selectedBedroom, setSelectedBedroom] = React.useState(null);
+    const [selectedBathroom, setSelectedBathroom] = React.useState(null);
+    const [selectedParking, setSelectedParking] = React.useState(null);
+    const [statusBtn, setStatusBtn] = React.useState(false);
+
+
 
     React.useEffect(() => {
         let tempBathrooms = [];
@@ -39,10 +46,21 @@ export default function SubHeader(props: any) {
         setBedrooms(tempBedrooms);
         setParking(tempParking);
         setPrice(tempPrice);
-    }, [props]);
+    }, [props, selectedPrice, selectedBedroom, selectedBathroom, selectedParking]);
+
+
 
     const handleFilter = (e: any) => {
-        console.log(bathrooms)
+
+        if (!statusBtn) {
+            props.setProperties(props.properties.filter((property: any) => {
+                return property.price === selectedPrice || property.bedrooms === selectedBedroom || property.bathrooms === selectedBathroom || property.parking === selectedParking;
+            }));
+            setStatusBtn(true);
+        }
+        else {
+            window.location.reload();   
+        }
 
     };
 
@@ -65,6 +83,7 @@ export default function SubHeader(props: any) {
                     </Dropdown.Menu>
                 </Dropdown>
 
+
                 <Dropdown className="nav-item dropdown-container" style={{ margin: '0 12px' }}>
                     <Dropdown.Toggle className="nav-link" id="dropdown-basic">
                         Preços
@@ -72,7 +91,7 @@ export default function SubHeader(props: any) {
 
                     <Dropdown.Menu className="dropdown-menu">
                         {price.map((price: any) => {
-                            return <Dropdown.Item href="#">{price}</Dropdown.Item>
+                            return <Dropdown.Item href="#" onClick={() => setSelectedPrice(price)}>{price}</Dropdown.Item>
                         })}
                     </Dropdown.Menu>
                 </Dropdown>
@@ -84,7 +103,7 @@ export default function SubHeader(props: any) {
 
                     <Dropdown.Menu className="dropdown-menu">
                         {bedrooms.map((bedroom: any) => {
-                            return <Dropdown.Item href="#">{bedroom}</Dropdown.Item>
+                            return <Dropdown.Item href="#" onClick={() => setSelectedBedroom(bedroom)}>{bedroom}</Dropdown.Item>
                         })}
                     </Dropdown.Menu>
                 </Dropdown>
@@ -96,7 +115,7 @@ export default function SubHeader(props: any) {
 
                     <Dropdown.Menu className="dropdown-menu">
                         {bathrooms.map((bathroom: any) => {
-                            return <Dropdown.Item href="#">{bathroom}</Dropdown.Item>
+                            return <Dropdown.Item href="#" onClick={() => setSelectedBathroom(bathroom)}>{bathroom}</Dropdown.Item>
                         })}
                     </Dropdown.Menu>
                 </Dropdown>}
@@ -108,7 +127,7 @@ export default function SubHeader(props: any) {
 
                     <Dropdown.Menu className="dropdown-menu">
                         {parking.map((parking: any) => {
-                            return <Dropdown.Item href="#">{parking}</Dropdown.Item>
+                            return <Dropdown.Item href="#" onClick={() => setSelectedParking(parking)}>{parking}</Dropdown.Item>
                         })}
                     </Dropdown.Menu>
                 </Dropdown>}
@@ -125,7 +144,7 @@ export default function SubHeader(props: any) {
                 </Dropdown>
 
                 <button className="dropdown-container" style={{ margin: '0 12px', padding: '5px 20px', height: '40px', borderRadius: '5px', border: 'none', backgroundColor: '#FEBD59', color: 'white' }}
-                    onClick={handleFilter}> Buscar </button>
+                    onClick={handleFilter}> {statusBtn ? 'Limpar' : 'Buscar'} </button>
             </div>
         </div>
 
