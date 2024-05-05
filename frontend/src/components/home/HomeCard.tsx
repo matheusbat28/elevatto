@@ -9,8 +9,7 @@ import {
   Button,
 } from "react-bootstrap";
 
-export default function HomeCard(props) {
-
+export default function HomeCard(props: any) {
   React.useEffect(() => {
   }, []);
 

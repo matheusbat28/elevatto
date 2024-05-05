@@ -1,10 +1,9 @@
 import React, { useState, useEffect, useReducer } from "react";
 import HomeCard from "./HomeCard";
-import { exampleData } from "./exempleData";
 import HomeModal from "../modals/HomeModal";
 import { getProperties, getPhotos } from "../../controls/requests";
 
-export default function HomeCardList(props) {
+export default function HomeCardList(props: any) {
   const [modalShow, setModalShow] = useState(false);
   const [selectedHome, setSelectedHome] = useState(null);
   const [type, setType] = useState("display")
@@ -73,17 +72,17 @@ export default function HomeCardList(props) {
             <h4 className="text-center text-black">Nenhum anúncio encontrado</h4>
           </div>
         )
-      }
+        }
 
-      
-    {  selectedHome && <HomeModal show={modalShow} onHide={() => setModalShow(false)} 
-    images={
-      selectedHome.photos
-}
-     type={type}
-        {...selectedHome}
-      />}
-    </div>
+
+        {selectedHome && <HomeModal show={modalShow} onHide={() => setModalShow(false)}
+          images={
+            selectedHome.photos
+          }
+          type={type}
+          {...selectedHome}
+        />}
+      </div>
     </>
   );
 
