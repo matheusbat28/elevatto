@@ -8,36 +8,45 @@ export default function SubHeader(props: any) {
     const [bedrooms, setBedrooms] = React.useState([]);
     const [parking, setParking] = React.useState([]);
     const [price, setPrice] = React.useState([]);
-
-
+    const [toggleBathrooms, setToggleBathrooms] = React.useState(false);
+    const [toggleParking, setToggleParking] = React.useState(false);
 
     React.useEffect(() => {
+        let tempBathrooms = [];
+        let tempBedrooms = [];
+        let tempParking = [];
+        let tempPrice = [];
 
-        props.properties.map((property: any) => {
-
-            if (!bathrooms.includes(property.bathrooms)) {
-                setBathrooms([...bathrooms, property.bathrooms])
+        props.properties.forEach((property: any) => {
+            if (!tempBathrooms.includes(property.bathrooms)) {
+                tempBathrooms.push(property.bathrooms);
             }
 
-            if (!bedrooms.includes(property.bedrooms)) {
-                setBedrooms([...bedrooms, property.bedrooms])
+            if (!tempBedrooms.includes(property.bedrooms)) {
+                tempBedrooms.push(property.bedrooms);
             }
 
-            if (!parking.includes(property.parking)) {
-                setParking([...parking, property.parking])
+            if (!tempParking.includes(property.parking)) {
+                tempParking.push(property.parking);
             }
 
-            if (!price.includes(property.price)) {
-                setPrice([...price, property.price])
+            if (!tempPrice.includes(property.price)) {
+                tempPrice.push(property.price);
             }
-
-
-
         });
 
+        setBathrooms(tempBathrooms);
+        setBedrooms(tempBedrooms);
+        setParking(tempParking);
+        setPrice(tempPrice);
+    }, [props]);
+
+    const handleFilter = (e: any) => {
+        console.log(bathrooms)
+
+    };
 
 
-    }, [props])
 
 
     return (
@@ -80,20 +89,43 @@ export default function SubHeader(props: any) {
                     </Dropdown.Menu>
                 </Dropdown>
 
+                {toggleBathrooms && <Dropdown className="nav-item dropdown-container" style={{ margin: '0 12px' }}>
+                    <Dropdown.Toggle className="nav-link" id="dropdown-basic">
+                        Banheiros
+                    </Dropdown.Toggle>
+
+                    <Dropdown.Menu className="dropdown-menu">
+                        {bathrooms.map((bathroom: any) => {
+                            return <Dropdown.Item href="#">{bathroom}</Dropdown.Item>
+                        })}
+                    </Dropdown.Menu>
+                </Dropdown>}
+
+                {toggleParking && <Dropdown className="nav-item dropdown-container" style={{ margin: '0 12px' }}>
+                    <Dropdown.Toggle className="nav-link" id="dropdown-basic">
+                        Estacionamento
+                    </Dropdown.Toggle>
+
+                    <Dropdown.Menu className="dropdown-menu">
+                        {parking.map((parking: any) => {
+                            return <Dropdown.Item href="#">{parking}</Dropdown.Item>
+                        })}
+                    </Dropdown.Menu>
+                </Dropdown>}
+
                 <Dropdown className="nav-item dropdown-container" style={{ margin: '0 12px' }}>
                     <Dropdown.Toggle className="nav-link" id="dropdown-basic">
                         Mais
                     </Dropdown.Toggle>
 
-                    <Dropdown.Menu className="dropdown-menu">
-                        <Dropdown.Item href="#">Action</Dropdown.Item>
-                        <Dropdown.Item href="#">Another action</Dropdown.Item>
-                        <Dropdown.Item href="#">Something else here</Dropdown.Item>
-                        <Dropdown.Divider />
+                    <Dropdown.Menu className="dropdown-menu" >
+                        <Dropdown.Item onClick={() => setToggleBathrooms(!toggleBathrooms)}>Banheiros</Dropdown.Item>
+                        <Dropdown.Item onClick={() => setToggleParking(!toggleParking)}>Estacionamento</Dropdown.Item>
                     </Dropdown.Menu>
                 </Dropdown>
 
-                <button className="dropdown-container" style={{ margin: '0 12px', padding: '5px 20px', height: '40px', borderRadius: '5px', border: 'none', backgroundColor: '#FEBD59', color: 'white' }}> Buscar </button>
+                <button className="dropdown-container" style={{ margin: '0 12px', padding: '5px 20px', height: '40px', borderRadius: '5px', border: 'none', backgroundColor: '#FEBD59', color: 'white' }}
+                    onClick={handleFilter}> Buscar </button>
             </div>
         </div>
 
