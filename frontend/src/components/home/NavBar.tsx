@@ -5,10 +5,11 @@ import "../home/App.css";
 import { FaSearch } from "react-icons/fa";
 import { useState, useEffect } from "react";
 import { Dropdown } from 'react-bootstrap';
-import { getUserLogged } from '../../controls/requests';
+import { getUserLogged, logout } from '../../controls/requests';
 import '../../index.css'
 import { FaUser } from "react-icons/fa";
 import { PiSignOutBold } from "react-icons/pi";
+import { Link } from "react-router-dom";
 
 export default function NavBar(props: any) {
   const [inputValue, setInputValue] = useState("");
@@ -126,39 +127,37 @@ export default function NavBar(props: any) {
           <Nav.Link href="Usuario" className={"navbar-link"}>
             Olá, {user ? user.username : "Visitante"}
           </Nav.Link>
+          <Link
+            style={{
+              height: '30px',
+              width: '30px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              lineHeight: '0px',
+              borderRadius: '105px',
+              backgroundColor: statusBtn ? '#ffff' : '#ffff',
+              color: 'black',
+              margin: '0 12px'
+            }} to="/login">
+            <FaUser /> { }
+          </Link>
           <button
             style={{
-                height: '30px',
-                lineHeight: '0px',
-                borderRadius: '105px',
-                border: 'none',
-                fontSize: '1.2rem',
-                backgroundColor: statusBtn ? '#ffff' : '#ffff',
-                color: 'black',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-                margin: '0 12px'
+              height: '30px',
+              lineHeight: '0px',
+              borderRadius: '105px',
+              border: 'none',
+              fontSize: '1.2rem',
+              backgroundColor: statusBtn ? '#ffff' : '#ffff',
+              color: 'black',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between'
             }}
-            onClick={handleFilter}>
-            <FaUser /> {}
-        </button>
-        <button
-            style={{
-                height: '30px',
-                lineHeight: '0px',
-                borderRadius: '105px',
-                border: 'none',
-                fontSize: '1.2rem',
-                backgroundColor: statusBtn ? '#ffff' : '#ffff',
-                color: 'black',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-between'
-            }}
-            onClick={handleFilter}>
-            <PiSignOutBold /> {}
-        </button>
+            onClick={() => logout()}>
+            <PiSignOutBold /> { }
+          </button>
         </Nav>
         {isSmallScreen && (
           <>

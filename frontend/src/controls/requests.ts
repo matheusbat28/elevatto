@@ -49,7 +49,7 @@ export async function isAuthenticated() {
 // logout
 export function logout() {
   localStorage.clear();
-  window.location.href = "/login";
+  window.location.reload();
 }
 
 // get user Logged
