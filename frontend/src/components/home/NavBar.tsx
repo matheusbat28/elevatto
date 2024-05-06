@@ -7,6 +7,8 @@ import { useState, useEffect } from "react";
 import { Dropdown } from 'react-bootstrap';
 import { getUserLogged } from '../../controls/requests';
 import '../../index.css'
+import { FaUser } from "react-icons/fa";
+import { PiSignOutBold } from "react-icons/pi";
 
 export default function NavBar(props: any) {
   const [inputValue, setInputValue] = useState("");
@@ -87,31 +89,6 @@ export default function NavBar(props: any) {
 
   };
 
-  const handleInputChange = (e: any) => {
-    const value = e.target.value.toLowerCase();
-    setInputValue(value);
-
-    const filteredProperties = props.properties.filter((property: any) => {
-      return Object.values(property).some((propValue: any) => {
-        if (typeof propValue === 'string') {
-          return propValue.toLowerCase().includes(value);
-        }
-        if (typeof propValue === 'number') {
-          return propValue.toString().includes(value);
-        }
-        if (Array.isArray(propValue)) {
-          return propValue.some((arrayValue: any) => arrayValue.toString().toLowerCase().includes(value));
-        }
-        if (typeof propValue === 'object') {
-          return JSON.stringify(propValue).toLowerCase().includes(value);
-        }
-        return false;
-      });
-    });
-
-    props.setProperties(filteredProperties);
-  };
-
   return (
     <Navbar expand="md" className="custom-navbar" style={{ zIndex: 2 }}>
       <Navbar.Brand href="/">
@@ -128,7 +105,7 @@ export default function NavBar(props: any) {
                 <input
                   type="text"
                   className="form-control"
-                  onChange={handleInputChange}
+                  onChange={(e) => setInputValue(e.target.value)}
                 />
                 {inputValue === "" && (
                   <div className="input-group-append">
@@ -149,6 +126,39 @@ export default function NavBar(props: any) {
           <Nav.Link href="Usuario" className={"navbar-link"}>
             Olá, {user ? user.username : "Visitante"}
           </Nav.Link>
+          <button
+            style={{
+                height: '30px',
+                lineHeight: '0px',
+                borderRadius: '105px',
+                border: 'none',
+                fontSize: '1.2rem',
+                backgroundColor: statusBtn ? '#ffff' : '#ffff',
+                color: 'black',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                margin: '0 12px'
+            }}
+            onClick={handleFilter}>
+            <FaUser /> {}
+        </button>
+        <button
+            style={{
+                height: '30px',
+                lineHeight: '0px',
+                borderRadius: '105px',
+                border: 'none',
+                fontSize: '1.2rem',
+                backgroundColor: statusBtn ? '#ffff' : '#ffff',
+                color: 'black',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between'
+            }}
+            onClick={handleFilter}>
+            <PiSignOutBold /> {}
+        </button>
         </Nav>
         {isSmallScreen && (
           <>
