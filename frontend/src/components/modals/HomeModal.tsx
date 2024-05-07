@@ -149,18 +149,7 @@ export default function HouseModal(props) {
   
   }
 
-  const sendPhotos = async () => {
-    const promises = fileImage.map((file) => {
-      const formData = new FormData();
-      formData.append("foto", file);
-      return createPhoto(formData);
-    });
 
-    const results = await Promise.all(promises);
-    const ids = results.map((data) => data.id);
-    console.log(ids);
-    return ids;
-  };
 
   function deleteInfo(){
    deleteProperty(props.id).then((data) => {
@@ -192,7 +181,7 @@ export default function HouseModal(props) {
      updateProperty(props.id, newItem)
         .then((data) => {
           console.log(data);
-          props.onHide();
+          props.reset();
         })
         .catch((error) => {
           console.log(error);
@@ -217,7 +206,7 @@ export default function HouseModal(props) {
       createProperty(newItem)
         .then((data) => {
           console.log(data);
-          props.onHide();
+          props.reset();
         })
         .catch((error) => {
           console.log(error);
@@ -572,7 +561,16 @@ export default function HouseModal(props) {
                 R$
               </span>
             </p>
-            <Button className="contact-button">Entrar em contato</Button>
+            <Button className="contact-button"
+            onClick={(e) => {
+              window.open(
+                `https://api.whatsapp.com/send?phone=5548998362799&text=Ol%C3%A1%2C%20vi%20o%20seu%20an%C3%BAncio%20no%20site%20Elevatto%20e%20gostaria%20de%20mais%20informa%C3%A7%C3%B5es
+                %20sobre%20a%20casa%20${item.title}
+                `,
+                "_blank"
+              );
+            }}
+            >Entrar em contato</Button>
           </>
         ) : (
           <>
