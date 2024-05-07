@@ -9,6 +9,7 @@ class Foto(models.Model):
     class Meta:
         verbose_name = 'Foto'
         verbose_name_plural = 'Fotos'
+        ordering = []
 
 class Properties(models.Model):
     title = models.CharField('Título', max_length=100)
