@@ -15,7 +15,6 @@ import {
 } from "../../controls/requests";
 
 export default function HouseModal(props) {
-  console.log(props)
   const [fileImage, setFileImage] = useState([]);
   const [completeImages, setCompleteImages] = useState([]);
   let [block, setblock] = useState(false);
@@ -138,7 +137,8 @@ export default function HouseModal(props) {
   const sendPhoto = async (photo) => {
     setblock(true);
     const formData = new FormData();
-    formData.append("foto", photo);
+    formData.append("foto", photo,);
+    formData.append("order", completeImages.length);
     let cImages = completeImages
     createPhoto(formData).then((data) => {
 
