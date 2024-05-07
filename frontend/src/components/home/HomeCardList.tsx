@@ -78,7 +78,7 @@ export default function HomeCardList(props: any) {
         }
 
 
-        {selectedHome && <HomeModal show={modalShow} onHide={() => setModalShow(false)}
+        {selectedHome && <HomeModal show={modalShow} onHide={() => {setModalShow(false), props.reset()}}
           images={
             selectedHome.photos
           }

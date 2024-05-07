@@ -180,3 +180,4 @@ export async function deletePhoto(id: string) {
   });
   return response.data;
 }
+
