@@ -186,3 +186,8 @@
       margin-bottom: 90px; /* Ajuste este valor conforme necessário */
     }
   }
+
+  .desc-text{
+    height: 230px;
+    overflow-y: auto;
+  }

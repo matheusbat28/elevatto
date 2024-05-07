@@ -3,18 +3,22 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import CarouselModal from "./CarouselModal";
 import { FaArrowUp, FaArrowDown } from "react-icons/fa";
+
 import {
   getPhotos,
   createPhoto,
   deletePhoto,
   updateProperty,
   createProperty,
-  deleteProperty
+  deleteProperty,
+
 } from "../../controls/requests";
 
 export default function HouseModal(props) {
   console.log(props)
   const [fileImage, setFileImage] = useState([]);
+  const [completeImages, setCompleteImages] = useState([]);
+  let [block, setblock] = useState(false);
   const [item, action] = useReducer(
     (state, action) => {
       switch (action.type) {
@@ -84,24 +88,43 @@ export default function HouseModal(props) {
     action({ type: "RESET" });
   };
 
-  const handleMoveImageUp = (index) => {
-    if (index > 0) {
-      const newImages = [...item.images];
-      const temp = newImages[index];
-      newImages[index] = newImages[index - 1];
-      newImages[index - 1] = temp;
-      setItem({ ...item, images: newImages });
+  function verifyInputs(){
+    if (item.description === "" || item.bedrooms === "" || item.price === "" || item.title === "" || item.bathrooms === "" || item.parking === "" || item.area === "") {
+      alert("Todos os campos devem ser preenchidos")
+      return false
     }
+    return true
+  }
+
+  const handleMoveImageUp = (id) => {
+    setCompleteImages((prevImages) => {
+      const index = prevImages.findIndex((img) => img.id === id);
+      if (index > 0) {
+        const newImages = [...prevImages];
+        const temp = newImages[index - 1];
+        newImages[index - 1] = newImages[index];
+        newImages[index] = temp;
+        return newImages;
+      }
+      return prevImages;
+    });
+    console.log(completeImages, "complete");
   };
 
-  const handleMoveImageDown = (index) => {
-    if (index < item.images.length - 1) {
-      const newImages = [...item.images];
-      const temp = newImages[index];
-      newImages[index] = newImages[index + 1];
-      newImages[index + 1] = temp;
-      setItem({ ...item, images: newImages });
-    }
+  const handleMoveImageDown = (id) => {
+    setCompleteImages((prevImages) => {
+      const index = prevImages.findIndex((img) => img.id === id);
+      if (index < prevImages.length - 1) {
+        const newImages = [...prevImages];
+        const temp = newImages[index + 1];
+        newImages[index + 1] = newImages[index];
+        newImages[index] = temp;
+        return newImages;
+      }
+      return prevImages;
+    });
+    console.log(completeImages, "complete");
+
   };
   const [mode, setMode] = useState("display");
 
@@ -112,18 +135,21 @@ export default function HouseModal(props) {
   //   });
   // }
 
-  const sendPhotos = async () => {
-    const promises = fileImage.map((file) => {
-      const formData = new FormData();
-      formData.append("foto", file);
-      return createPhoto(formData);
-    });
+  const sendPhoto = async (photo) => {
+    setblock(true);
+    const formData = new FormData();
+    formData.append("foto", photo);
+    let cImages = completeImages
+    createPhoto(formData).then((data) => {
 
-    const results = await Promise.all(promises);
-    const ids = results.map((data) => data.id);
-    console.log(ids);
-    return ids;
-  };
+      cImages.push(data)
+      setCompleteImages(cImages)
+      setblock(false);
+    });
+  
+  }
+
+
 
   function deleteInfo(){
    deleteProperty(props.id).then((data) => {
@@ -133,12 +159,20 @@ export default function HouseModal(props) {
   }
 
   function putInfo(item){
-    sendPhotos().then((ids) => {
+    console.log("a",
+      completeImages
+    )
+    const completeImagesWithIndex = completeImages.map((data, index) => ({
+      id: data.id,
+      index,
+    }));
       const newItem = {
         description: item.description,
         bedrooms: item.bedrooms,
         price: item.price,
-        photos: ids,
+        photos: completeImagesWithIndex
+        .sort((a, b) => a.index - b.index)
+        .map((data) => data.id),
         title: item.title,
         bathrooms: item.bathrooms,
         parking: item.parking,
@@ -147,22 +181,23 @@ export default function HouseModal(props) {
      updateProperty(props.id, newItem)
         .then((data) => {
           console.log(data);
-          props.onHide();
+          props.reset();
         })
         .catch((error) => {
           console.log(error);
         });
-    });
+   
   }
 
 
   function postInfo(item) {
-    sendPhotos().then((ids) => {
       const newItem = {
         description: item.description,
         bedrooms: item.bedrooms,
         price: item.price,
-        photos: ids,
+        photos: completeImages.map((data) =>
+          data.id
+         ),
         title: item.title,
         bathrooms: item.bathrooms,
         parking: item.parking,
@@ -171,15 +206,16 @@ export default function HouseModal(props) {
       createProperty(newItem)
         .then((data) => {
           console.log(data);
-          props.onHide();
+          props.reset();
         })
         .catch((error) => {
           console.log(error);
         });
-    });
+ 
   }
 
   useEffect(() => {
+    setCompleteImages([])
     if (props.type === "new") {
       handleReset();
     } 
@@ -191,20 +227,34 @@ export default function HouseModal(props) {
       bedrooms: props.bedrooms,
       price: props.price,
       images: [],
+      imagesIds: props.images,
       title: props.title,
       bathrooms: props.bathrooms,
       parking: props.parking,
       area: props.area,
     };
+    let fileImage = [];
+    let images = [];
+   
     getPhotos(props.images).then((data) => {
-      let images = [];
+      let cImages = []
       data.forEach((element) => {
-        // console.log(element.foto
-        images.push("http://localhost:8000" + element.foto);
+       const newData = element
+        newData.foto = "http://localhost:8000" + element.foto
+        images.push(newData.foto);
+      cImages.push(newData);
+        // transforme o link  em arquivo
       });
+      setFileImage(fileImage);
+      //console.log("images", images)
       newItem.images = images;
       setItem(newItem);
+      setCompleteImages(
+        cImages
+      )
     });
+
+   
   }, [props]);
 
 
@@ -220,7 +270,7 @@ export default function HouseModal(props) {
       centered
     >
       <Modal.Header closeButton>
-        {mode !== "edit" && localStorage.getItem("access") && (
+        {mode === "display" && localStorage.getItem("access") && (
           <>
           <button
             className="
@@ -234,7 +284,7 @@ export default function HouseModal(props) {
           </button>
           <button
                        className="
-        btn btn-danger ms-4
+        btn btn-danger ms-2
         "
             onClick={() => {
               deleteInfo()
@@ -260,7 +310,11 @@ export default function HouseModal(props) {
                       <button
                         onClick={() => {
                           if (fileInput) {
+                            console.log("fileImage", fileImage)
                             setFileImage([...fileImage, fileInput]);
+                            sendPhoto(
+                              fileInput
+                            )
                             handleAddImage(URL.createObjectURL(fileInput));
                             setFileInput(null);
                           }
@@ -281,7 +335,7 @@ export default function HouseModal(props) {
                         onClick={() => {
                           if (fileInput) {
                             setFileInput(null);
-
+                            
                           }
                         }}
                         className="btn btn-danger col-12 "
@@ -292,9 +346,8 @@ export default function HouseModal(props) {
                   )}
                 </div>
                 <hr className="text-black" />
-                {item.images &&
-                  item.images[0] &&
-                  item.images.map((image, index) => (
+                {completeImages[0] &&
+                  completeImages.map(({foto, id}, index) => (
                     <div key={index} className=" mt-4">
                       {index === 0 && (
                         <h4 className="text-center text-black">
@@ -303,7 +356,7 @@ export default function HouseModal(props) {
                       )}
                       {index > 0 && (
                         <button
-                          onClick={() => handleMoveImageUp(index)}
+                          onClick={() => handleMoveImageUp(id)}
                           className="btn btn-outline-dark col-12 "
                           style={{ backgroundColor: "transparent" }}
                         >
@@ -311,20 +364,27 @@ export default function HouseModal(props) {
                         </button>
                       )}
                       <button
-                        onClick={() => handleRemoveImage(index)}
+                        onClick={() => 
+                          deletePhoto(id).then((data) => {
+                            console.log(data);
+                            setCompleteImages(
+                              completeImages.filter((data) => data.id!== id)
+                            )
+                          })
+                        }
                         className="btn btn-danger col-12"
                       >
                         Remover
                       </button>
 
-                      <img
-                        src={image}
+                     <img
+                        src={foto}
                         alt=""
                         className="fixed-carousel-image"
-                      />
+                      /> 
                       {index < item.images.length - 1 && (
                         <button
-                          onClick={() => handleMoveImageDown(index)}
+                          onClick={() => handleMoveImageDown(id)}
                           className="col-12 btn btn-outline-dark"
                           style={{ backgroundColor: "transparent" }}
                         >
@@ -436,7 +496,7 @@ export default function HouseModal(props) {
               // Render display mode elements here
               <div>
                 <h4 className="text-center  mb-3">{item.title}</h4>
-                <p className="modal-text-desc">{item.description}</p>
+                <p className=" desc-text">{item.description}</p>
                 <div className="bottom-element ">
                   <p className="col-12 d-flex">
                     <div className="col-5 offset-1">
@@ -501,7 +561,16 @@ export default function HouseModal(props) {
                 R$
               </span>
             </p>
-            <Button className="contact-button">Entrar em contato</Button>
+            <Button className="contact-button"
+            onClick={(e) => {
+              window.open(
+                `https://api.whatsapp.com/send?phone=5548998362799&text=Ol%C3%A1%2C%20vi%20o%20seu%20an%C3%BAncio%20no%20site%20Elevatto%20e%20gostaria%20de%20mais%20informa%C3%A7%C3%B5es
+                %20sobre%20a%20casa%20${item.title}
+                `,
+                "_blank"
+              );
+            }}
+            >Entrar em contato</Button>
           </>
         ) : (
           <>
@@ -516,12 +585,15 @@ export default function HouseModal(props) {
             </Button>
             <Button
               onClick={() => {
+                if(verifyInputs()){
                 if(mode === "new"){
                 postInfo(item);
                 } else if( mode === "edit"){
                   putInfo(item);
                 }
+              }
               }}
+              disabled={block}
               className="btn-primary"
             >
               Salvar
