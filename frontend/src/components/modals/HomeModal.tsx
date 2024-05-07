@@ -154,6 +154,7 @@ export default function HouseModal(props) {
   function deleteInfo(){
    deleteProperty(props.id).then((data) => {
       console.log(data);
+      props.reset()
       props.onHide();
     });
   }
