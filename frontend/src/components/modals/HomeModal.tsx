@@ -220,7 +220,7 @@ export default function HouseModal(props) {
       centered
     >
       <Modal.Header closeButton>
-        {mode !== "edit" && localStorage.getItem("access") && (
+        {mode === "display" && localStorage.getItem("access") && (
           <>
           <button
             className="
