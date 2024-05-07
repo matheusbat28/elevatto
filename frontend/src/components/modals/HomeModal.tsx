@@ -284,7 +284,7 @@ export default function HouseModal(props) {
           </button>
           <button
                        className="
-        btn btn-danger ms-4
+        btn btn-danger ms-2
         "
             onClick={() => {
               deleteInfo()
