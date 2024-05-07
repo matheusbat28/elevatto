@@ -4,6 +4,7 @@ from datetime import datetime
 class Foto(models.Model):
     foto = models.ImageField(upload_to='fotos', verbose_name='Foto')
     created_at = models.DateTimeField(default=datetime.now, blank=True, null=True)
+    order = models.PositiveIntegerField('Ordem', default=0)
     
     def __str__(self):
         return f'{self.id}'
@@ -11,7 +12,7 @@ class Foto(models.Model):
     class Meta:
         verbose_name = 'Foto'
         verbose_name_plural = 'Fotos'
-        ordering = ('created_at',)
+        ordering = ('order',)
 
 class Properties(models.Model):
     title = models.CharField('Título', max_length=100)
