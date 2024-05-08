@@ -25,7 +25,8 @@ class Properties(models.Model):
     created_at = models.DateTimeField('Criado em', auto_now_add=True)
     updated_at = models.DateTimeField('Atualizado em', auto_now=True)
     price = models.DecimalField('Preço', max_digits=10, decimal_places=2)
-    location = models.CharField('Localização', max_length=100, blank=True, null=True)
+    state = models.CharField('Estado', max_length=50, blank=True, null=True)
+    neighborhood = models.CharField('Bairro', max_length=100, blank=True, null=True)
 
     class Meta:
         verbose_name = 'Propriedade'
