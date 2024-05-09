@@ -134,12 +134,6 @@ export default function NavBar(props: any) {
               </div>
             </div>
           </div>
-          <Nav.Link href="#regiao" className={"active navbar-link"}>
-            <span className="text-margin-top">Região</span>
-          </Nav.Link>
-          <Nav.Link href="#propriedade" className={" navbar-link"}>
-            Tipo de propriedade
-          </Nav.Link>
           <Nav.Link href="Usuario" className={"navbar-link"}>
             Olá, {user ? user.username : "Visitante"}
           </Nav.Link>
