@@ -146,6 +146,10 @@
         height: 100%;
     margin-top: 20px;
     }
+
+    .desc-text {
+        height: 230px;
+    overflow-y: auto;
 }
 
 
