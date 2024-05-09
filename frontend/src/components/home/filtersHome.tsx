@@ -8,12 +8,16 @@ export default function SubHeader(props: any) {
     const [bedrooms, setBedrooms] = React.useState([]);
     const [parking, setParking] = React.useState([]);
     const [price, setPrice] = React.useState([]);
+    const [state, setState] = React.useState([]);
+    const [neighborhood, setNeighborhood] = React.useState([]);
     const [toggleBathrooms, setToggleBathrooms] = React.useState(false);
     const [toggleParking, setToggleParking] = React.useState(false);
     const [selectedPrice, setSelectedPrice] = React.useState(null);
     const [selectedBedroom, setSelectedBedroom] = React.useState(null);
     const [selectedBathroom, setSelectedBathroom] = React.useState(null);
     const [selectedParking, setSelectedParking] = React.useState(null);
+    const [selectedState, setSelectedState] = React.useState(null);
+    const [selectedNeighborhood, setSelectedNeighborhood] = React.useState(null);
     const [statusBtn, setStatusBtn] = React.useState(false);
 
 
@@ -23,6 +27,8 @@ export default function SubHeader(props: any) {
         let tempBedrooms = [];
         let tempParking = [];
         let tempPrice = [];
+        let tempState = [];
+        let tempNeighborhood = [];
 
         props.properties.forEach((property: any) => {
             if (!tempBathrooms.includes(property.bathrooms)) {
@@ -40,12 +46,20 @@ export default function SubHeader(props: any) {
             if (!tempPrice.includes(property.price)) {
                 tempPrice.push(property.price);
             }
+            if (!tempState.includes(property.state)) {
+                tempState.push(property.state);
+            }
+            if (!tempNeighborhood.includes(property.neighborhood)) {
+                tempNeighborhood.push(property.neighborhood);
+            }
         });
 
         setBathrooms(tempBathrooms);
         setBedrooms(tempBedrooms);
         setParking(tempParking);
         setPrice(tempPrice);
+        setState(tempState);
+        setNeighborhood(tempNeighborhood);
     }, [props, selectedPrice, selectedBedroom, selectedBathroom, selectedParking]);
 
 
@@ -54,7 +68,7 @@ export default function SubHeader(props: any) {
 
         if (!statusBtn) {
             props.setProperties(props.properties.filter((property: any) => {
-                return property.price === selectedPrice || property.bedrooms === selectedBedroom || property.bathrooms === selectedBathroom || property.parking === selectedParking;
+                return property.price === selectedPrice || property.bedrooms === selectedBedroom || property.bathrooms === selectedBathroom || property.parking === selectedParking || property.state === selectedState || property.neighborhood === selectedNeighborhood;
             }));
             setStatusBtn(true);
         }
@@ -72,17 +86,27 @@ export default function SubHeader(props: any) {
             <div className="dropdown-group">
                 <Dropdown className="nav-item dropdown-container" style={{ margin: '0 12px' }}>
                     <Dropdown.Toggle className="nav-link" id="dropdown-basic">
-                        Locais
+                        Estado
                     </Dropdown.Toggle>
 
                     <Dropdown.Menu className="dropdown-menu">
-                        <Dropdown.Item href="#">Local1</Dropdown.Item>
-                        <Dropdown.Item href="#">Local1</Dropdown.Item>
-                        <Dropdown.Item href="#">Local1</Dropdown.Item>
-                        <Dropdown.Divider />
+                        {state.map((state: any) => {
+                            return <Dropdown.Item href="#" onClick={() => setSelectedState(state)}>{state}</Dropdown.Item>
+                        })}
                     </Dropdown.Menu>
                 </Dropdown>
 
+                <Dropdown className="nav-item dropdown-container" style={{ margin: '0 12px' }}>
+                    <Dropdown.Toggle className="nav-link" id="dropdown-basic">
+                        Bairro
+                    </Dropdown.Toggle>
+
+                    <Dropdown.Menu className="dropdown-menu">
+                        {neighborhood.map((neighborhood: any) => {
+                            return <Dropdown.Item href="#" onClick={() => setSelectedNeighborhood(neighborhood)}>{neighborhood}</Dropdown.Item>
+                        })}
+                    </Dropdown.Menu>
+                </Dropdown>
 
                 <Dropdown className="nav-item dropdown-container" style={{ margin: '0 12px' }}>
                     <Dropdown.Toggle className="nav-link" id="dropdown-basic">
