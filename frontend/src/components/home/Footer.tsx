@@ -15,14 +15,14 @@ export default function Footer() {
           </div>
           <div className="col-4 align-self-center text-left">
               <p className="first-paragraph">Elevatto Imobiliária</p>
-              <p>CNPJ - 00.000.000/0000-00</p>
-              <p>Endereço: Rua dos Bobos, nº 0</p>
+              <p>CRECI: 25925</p>
+              <p>Avenida Brasil, 206 - Bela Vista, ,sala 4</p>
           </div>
           <div></div>
           <div className="col-4 align-self-center text-left">
-          <p><FaGoogle size={24} /> contato@gmail.com</p>
-          <p><FaWhatsapp size={27} /> (00) 0000-0000</p>
-          <p id="last-paragraph"><FaInstagram size={28} /> @Imobiliária Elevatto</p>
+          <p><FaGoogle size={24} /> contato@imobiliariaelevatto.com.br</p>
+          <p><FaWhatsapp size={27} /> (48) 99836-2799</p>
+          <p id="last-paragraph"><FaInstagram size={28} /> @imobiliariaelevatto__</p>
           </div>
         </div>
       );
