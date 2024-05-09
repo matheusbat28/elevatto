@@ -191,3 +191,7 @@
     height: 230px;
     overflow-y: auto;
   }
+
+  .stsearch-box input{
+    width: 100px !important;
+  }

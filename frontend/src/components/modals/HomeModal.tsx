@@ -3,7 +3,14 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import CarouselModal from "./CarouselModal";
 import { FaArrowUp, FaArrowDown } from "react-icons/fa";
-
+import {
+  CitySelect,
+  CountrySelect,
+  StateSelect,
+  LanguageSelect,
+} from "react-country-state-city";
+import "react-country-state-city/dist/react-country-state-city.css";
+import "react-country-state-city/dist/react-country-state-city.css";
 import {
   getPhotos,
   createPhoto,
@@ -11,12 +18,15 @@ import {
   updateProperty,
   createProperty,
   deleteProperty,
-
 } from "../../controls/requests";
 
 export default function HouseModal(props) {
+  console.log(props);
   const [fileImage, setFileImage] = useState([]);
   const [completeImages, setCompleteImages] = useState([]);
+  const [stateid, setstateid] = useState(0);
+  const [cityid, setcityid] = useState(0);
+  const [openLoc, setOpenLoc] = useState(true);
   let [block, setblock] = useState(false);
   const [item, action] = useReducer(
     (state, action) => {
@@ -49,6 +59,8 @@ export default function HouseModal(props) {
             bathrooms: "",
             parking: "",
             area: "",
+            state: "",
+            neighborhood: "",
           };
         default:
           return state;
@@ -87,12 +99,20 @@ export default function HouseModal(props) {
     action({ type: "RESET" });
   };
 
-  function verifyInputs(){
-    if (item.description === "" || item.bedrooms === "" || item.price === "" || item.title === "" || item.bathrooms === "" || item.parking === "" || item.area === "") {
-      alert("Todos os campos devem ser preenchidos")
-      return false
+  function verifyInputs() {
+    if (
+      item.description === "" ||
+      item.bedrooms === "" ||
+      item.price === "" ||
+      item.title === "" ||
+      item.bathrooms === "" ||
+      item.parking === "" ||
+      item.area === ""
+    ) {
+      alert("Todos os campos devem ser preenchidos");
+      return false;
     }
-    return true
+    return true;
   }
 
   const handleMoveImageUp = (id) => {
@@ -123,10 +143,8 @@ export default function HouseModal(props) {
       return prevImages;
     });
     console.log(completeImages, "complete");
-
   };
   const [mode, setMode] = useState("display");
-
 
   // function removePhotos(id) {
   //   deletePhoto(id).then((data) => {
@@ -137,91 +155,83 @@ export default function HouseModal(props) {
   const sendPhoto = async (photo) => {
     setblock(true);
     const formData = new FormData();
-    formData.append("foto", photo,);
-    formData.append("order", completeImages.length);
-    let cImages = completeImages
+    formData.append("foto", photo);
+    let cImages = completeImages;
     createPhoto(formData).then((data) => {
-
-      cImages.push(data)
-      setCompleteImages(cImages)
+      cImages.push(data);
+      setCompleteImages(cImages);
       setblock(false);
     });
-  
-  }
+  };
 
-
-
-  function deleteInfo(){
-   deleteProperty(props.id).then((data) => {
+  function deleteInfo() {
+    deleteProperty(props.id).then((data) => {
       console.log(data);
-      props.reset()
+      props.reset();
       props.onHide();
     });
   }
 
-  function putInfo(item){
-    console.log("a",
-      completeImages
-    )
+  function putInfo(item) {
+    console.log("a", completeImages);
     const completeImagesWithIndex = completeImages.map((data, index) => ({
       id: data.id,
       index,
     }));
-      const newItem = {
-        description: item.description,
-        bedrooms: item.bedrooms,
-        price: item.price,
-        photos: completeImagesWithIndex
+    const newItem = {
+      description: item.description,
+      bedrooms: item.bedrooms,
+      price: item.price,
+      photos: completeImagesWithIndex
         .sort((a, b) => a.index - b.index)
         .map((data) => data.id),
-        title: item.title,
-        bathrooms: item.bathrooms,
-        parking: item.parking,
-        area: item.area,
-      };
-     updateProperty(props.id, newItem)
-        .then((data) => {
-          console.log(data);
-          props.reset();
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-   
+      title: item.title,
+      bathrooms: item.bathrooms,
+      parking: item.parking,
+      area: item.area,
+      state: item.state,
+      neighborhood: item.neighborhood,
+    };
+    updateProperty(props.id, newItem)
+      .then((data) => {
+        console.log(data);
+        props.reset();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 
-
   function postInfo(item) {
-      const newItem = {
-        description: item.description,
-        bedrooms: item.bedrooms,
-        price: item.price,
-        photos: completeImages.map((data) =>
-          data.id
-         ),
-        title: item.title,
-        bathrooms: item.bathrooms,
-        parking: item.parking,
-        area: item.area,
-      };
-      createProperty(newItem)
-        .then((data) => {
-          console.log(data);
-          props.reset();
-        })
-        .catch((error) => {
-          console.log(error);
-        });
- 
+    const newItem = {
+      description: item.description,
+      bedrooms: item.bedrooms,
+      price: item.price,
+      photos: completeImages.map((data) => data.id),
+      title: item.title,
+      bathrooms: item.bathrooms,
+      parking: item.parking,
+      area: item.area,
+      state: item.state,
+      neighborhood: item.neighborhood,
+
+    };
+    createProperty(newItem)
+      .then((data) => {
+        console.log(data);
+        props.reset();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 
   useEffect(() => {
-    setCompleteImages([])
+    setCompleteImages([]);
     if (props.type === "new") {
       handleReset();
-    } 
-      setMode(props.type);
-    
+    }
+    setMode(props.type);
 
     const newItem = {
       description: props.description,
@@ -233,33 +243,31 @@ export default function HouseModal(props) {
       bathrooms: props.bathrooms,
       parking: props.parking,
       area: props.area,
+      state: props.state,
+      neighborhood: props.neighborhood,
     };
+
+  
+  
     let fileImage = [];
     let images = [];
-   
+
     getPhotos(props.images).then((data) => {
-      let cImages = []
+      let cImages = [];
       data.forEach((element) => {
-       const newData = element
-        newData.foto = "http://localhost:8000" + element.foto
+        const newData = element;
+        newData.foto = "http://localhost:8000" + element.foto;
         images.push(newData.foto);
-      cImages.push(newData);
+        cImages.push(newData);
         // transforme o link  em arquivo
       });
       setFileImage(fileImage);
       //console.log("images", images)
       newItem.images = images;
       setItem(newItem);
-      setCompleteImages(
-        cImages
-      )
+      setCompleteImages(cImages);
     });
-
-   
   }, [props]);
-
-
-
 
   const [fileInput, setFileInput] = useState(null);
 
@@ -273,32 +281,33 @@ export default function HouseModal(props) {
       <Modal.Header closeButton>
         {mode === "display" && localStorage.getItem("access") && (
           <>
-          <button
-            className="
+            <button
+              className="
         btn btn-secondary
         "
-            onClick={() => {
-              setMode("edit");
-            }}
-          >
-            Modo de edição
-          </button>
-          <button
-                       className="
+              onClick={() => {
+                setMode("edit");
+              }}
+            >
+              Modo de edição
+            </button>
+            <button
+              className="
         btn btn-danger ms-2
         "
-            onClick={() => {
-              deleteInfo()
-            }}>
+              onClick={() => {
+                deleteInfo();
+              }}
+            >
               Excluir
-          </button>
+            </button>
           </>
         )}
       </Modal.Header>
       <Modal.Body className="d-flex flex-column">
         <div className="images-flex flex-grow-1">
           <div className="images-carousel">
-            {mode === "edit" || mode === "new"? (
+            {mode === "edit" || mode === "new" ? (
               <div>
                 <div>
                   <input
@@ -311,11 +320,9 @@ export default function HouseModal(props) {
                       <button
                         onClick={() => {
                           if (fileInput) {
-                            console.log("fileImage", fileImage)
+                            console.log("fileImage", fileImage);
                             setFileImage([...fileImage, fileInput]);
-                            sendPhoto(
-                              fileInput
-                            )
+                            sendPhoto(fileInput);
                             handleAddImage(URL.createObjectURL(fileInput));
                             setFileInput(null);
                           }
@@ -336,7 +343,6 @@ export default function HouseModal(props) {
                         onClick={() => {
                           if (fileInput) {
                             setFileInput(null);
-                            
                           }
                         }}
                         className="btn btn-danger col-12 "
@@ -348,7 +354,7 @@ export default function HouseModal(props) {
                 </div>
                 <hr className="text-black" />
                 {completeImages[0] &&
-                  completeImages.map(({foto, id}, index) => (
+                  completeImages.map(({ foto, id }, index) => (
                     <div key={index} className=" mt-4">
                       {index === 0 && (
                         <h4 className="text-center text-black">
@@ -365,12 +371,12 @@ export default function HouseModal(props) {
                         </button>
                       )}
                       <button
-                        onClick={() => 
+                        onClick={() =>
                           deletePhoto(id).then((data) => {
                             console.log(data);
                             setCompleteImages(
-                              completeImages.filter((data) => data.id!== id)
-                            )
+                              completeImages.filter((data) => data.id !== id)
+                            );
                           })
                         }
                         className="btn btn-danger col-12"
@@ -378,11 +384,7 @@ export default function HouseModal(props) {
                         Remover
                       </button>
 
-                     <img
-                        src={foto}
-                        alt=""
-                        className="fixed-carousel-image"
-                      /> 
+                      <img src={foto} alt="" className="fixed-carousel-image" />
                       {index < item.images.length - 1 && (
                         <button
                           onClick={() => handleMoveImageDown(id)}
@@ -464,7 +466,30 @@ export default function HouseModal(props) {
                         />
                       </div>
                     </div>
+                    {openLoc && (
+                      <div className="col-6 d-flex mb-3 me-3 ">
+                        <span className="col-8">Estado:</span>
+                        <StateSelect
+                       placeHolder={
+                          item.state
+                        }
+                        
+                          countryid={31}
+                          onChange={(e) => {
+                            setstateid(e.id);
+                            setItem(
+                              {
+                                ...item,
+                                state: e.name,
+                              }
+                            )
+                          }}
+                          className="form-control mb-3 me-3 col-4"
+                        />
+                      </div>
+                    )}
                   </div>
+
                   <div>
                     <div className="col-6 d-flex">
                       <span className="col-8">Garagens:</span>
@@ -490,7 +515,56 @@ export default function HouseModal(props) {
                         className="form-control mb-3 me-3 col-4"
                       />
                     </div>
+                    <div className="col-6 d-flex mb-3">
+                      <span className="col-8">Localização </span>
+                      <input
+                        type="checkbox"
+                        checked={openLoc}
+
+                        onChange={(e) => {
+                          setOpenLoc(e.target.checked);
+                          setcityid(0);
+                          setstateid(0);
+                          setItem(
+                            {
+                              ...item,
+                              neighborhood: "",
+                              state: "",
+                            }
+                          )
+                        }}
+                        className="
+                        form-check-input
+                        mb-3 me-3 col-1"
+                      />
+                    </div>
+
+                    {openLoc && (
+                      <div className="col-6 d-flex mb-3 me-3 ">
+                        <span className="col-8">Cidade:</span>
+                        <CitySelect
+
+placeHolder={
+                            item.neighborhood
+                          }
+                          countryid={31}
+                          stateid={stateid}
+                          onChange={(e) => {
+                            setcityid(e.id);
+                            setItem(
+                              {
+                               ...item,
+                                neighborhood: e.name,
+                              }
+                            )
+                          }}
+                          className="form-control mb-3 me-3 col-4"
+                        />
+                      </div>
+                    )}
+                    <div></div>
                   </div>
+                  <div></div>
                 </div>
               </div>
             ) : (
@@ -562,16 +636,19 @@ export default function HouseModal(props) {
                 R$
               </span>
             </p>
-            <Button className="contact-button"
-            onClick={(e) => {
-              window.open(
-                `https://api.whatsapp.com/send?phone=5548998362799&text=Ol%C3%A1%2C%20vi%20o%20seu%20an%C3%BAncio%20no%20site%20Elevatto%20e%20gostaria%20de%20mais%20informa%C3%A7%C3%B5es
+            <Button
+              className="contact-button"
+              onClick={(e) => {
+                window.open(
+                  `https://api.whatsapp.com/send?phone=5548998362799&text=Ol%C3%A1%2C%20vi%20o%20seu%20an%C3%BAncio%20no%20site%20Elevatto%20e%20gostaria%20de%20mais%20informa%C3%A7%C3%B5es
                 %20sobre%20a%20casa%20${item.title}
                 `,
-                "_blank"
-              );
-            }}
-            >Entrar em contato</Button>
+                  "_blank"
+                );
+              }}
+            >
+              Entrar em contato
+            </Button>
           </>
         ) : (
           <>
@@ -586,13 +663,13 @@ export default function HouseModal(props) {
             </Button>
             <Button
               onClick={() => {
-                if(verifyInputs()){
-                if(mode === "new"){
-                postInfo(item);
-                } else if( mode === "edit"){
-                  putInfo(item);
+                if (verifyInputs()) {
+                  if (mode === "new") {
+                    postInfo(item);
+                  } else if (mode === "edit") {
+                    putInfo(item);
+                  }
                 }
-              }
               }}
               disabled={block}
               className="btn-primary"
