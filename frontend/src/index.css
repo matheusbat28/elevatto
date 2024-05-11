@@ -74,6 +74,10 @@
     font-size: 20px;
 }
 
+.stsearch-box input{
+    width: 100px !important;
+  }
+
 .images-carousel{
     width: 50%;
     padding: 0;
@@ -152,6 +156,10 @@
     overflow-y: auto;
 }
 
+.stsearch-box{
+    width: 80% !important;
+}
+
 
 .text-black{
     color: black!important;
@@ -197,5 +205,7 @@
   }
 
   .stsearch-box input{
-    width: 100px !important;
+    width: 80px !important;
   }
+
+}

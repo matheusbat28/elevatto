@@ -516,7 +516,7 @@ export default function HouseModal(props) {
                       />
                     </div>
                     <div className="col-6 d-flex mb-3">
-                      <span className="col-8">Localização </span>
+                      <span className="col-10">Localização: </span>
                       <input
                         type="checkbox"
                         checked={openLoc}
@@ -535,7 +535,7 @@ export default function HouseModal(props) {
                         }}
                         className="
                         form-check-input
-                        mb-3 me-3 col-1"
+                        mb-3 me-3 col-2 ms-3" 
                       />
                     </div>
 
