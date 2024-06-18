@@ -125,9 +125,9 @@ export default function Login() {
           </InputPrepend>
           <Input required type="password" placeholder="Senha" className="form-control" onChange={(e) => setPassword(e.target.value.trim())} />
         </InputGroup>
-        <ForgotPassword>
+        {/* <ForgotPassword>
           <ForgotPasswordLink href="#">Esqueci minha senha?</ForgotPasswordLink>
-        </ForgotPassword>
+        </ForgotPassword> */}
         <Button type="submit" >{loading ? 'Carregando...' : 'Entrar'}</Button>
       </FormLogin>
       {alert.message && <Alert message={alert.message} type={alert.type} />}
