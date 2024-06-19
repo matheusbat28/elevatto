@@ -81,7 +81,7 @@ export default function HomeCard(props: any) {
       </CardBody>
       <CardFooter>
         <p className="col-12 d-flex  align-items-center">
-          <Button className="col-6 contact-button"
+          <Button className="col-5 contact-button mx-2"
             onClick={(e) => {
               window.open(
                 `https://api.whatsapp.com/send?phone=5548998362799&text=Ol%C3%A1%2C%20vi%20o%20seu%20an%C3%BAncio%20no%20site%20Elevatto%20e%20gostaria%20de%20mais%20informa%C3%A7%C3%B5es%20sobre%20a%20casa%20${props.title}`,
@@ -91,10 +91,9 @@ export default function HomeCard(props: any) {
           >
             Contato
           </Button>
-          <span className="col-6 text-center money-text">R$ {props.price.replaceAll(
-            ".",
-            ","
-          )}</span>
+          <span className="col-6 text-center money-text">
+            {parseFloat(props.price).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
+          </span>
         </p>
       </CardFooter>
     </Card>

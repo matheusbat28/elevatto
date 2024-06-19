@@ -247,8 +247,8 @@ export default function HouseModal(props) {
       neighborhood: props.neighborhood,
     };
 
-  
-  
+
+
     let fileImage = [];
     let images = [];
 
@@ -470,10 +470,10 @@ export default function HouseModal(props) {
                       <div className="col-6 d-flex mb-3 me-3 ">
                         <span className="col-8">Estado:</span>
                         <StateSelect
-                       placeHolder={
-                          item.state
-                        }
-                        
+                          placeHolder={
+                            item.state
+                          }
+
                           countryid={31}
                           onChange={(e) => {
                             setstateid(e.id);
@@ -535,7 +535,7 @@ export default function HouseModal(props) {
                         }}
                         className="
                         form-check-input
-                        mb-3 me-3 col-2 ms-3" 
+                        mb-3 me-3 col-2 ms-3"
                       />
                     </div>
 
@@ -544,7 +544,7 @@ export default function HouseModal(props) {
                         <span className="col-8">Cidade:</span>
                         <CitySelect
 
-placeHolder={
+                          placeHolder={
                             item.neighborhood
                           }
                           countryid={31}
@@ -553,7 +553,7 @@ placeHolder={
                             setcityid(e.id);
                             setItem(
                               {
-                               ...item,
+                                ...item,
                                 neighborhood: e.name,
                               }
                             )
@@ -626,14 +626,11 @@ placeHolder={
           <>
             <p>
               <span className="text-center me-3 money-text">
-                {" "}
                 {item.price
                   .toLocaleString("pt-BR", {
                     style: "currency",
                     currency: "BRL",
-                  })
-                  .replaceAll(",", ".")}{" "}
-                R$
+                  })}
               </span>
             </p>
             <Button
