@@ -22,11 +22,7 @@ export default function HomeCard(props: any) {
       <CardBody>
         {props?.photo && <CardImg src={props.photo} alt="Card image cap" className="top-card-image" />}
         <p className=" align-items-center d-flex justify-content-center mt-1">
-          <img
-            src="https://cdn-icons-png.flaticon.com/128/535/535239.png"
-            alt="pin"
-            className="pin"
-          />
+          
           <CardTitle
             className=" col-12 text-center mt-1"
             style={{ fontSize: "1.2rem" }}
@@ -38,9 +34,9 @@ export default function HomeCard(props: any) {
           </CardTitle>
         </p>
         <CardText>
-          <div className="ps-4">
-            <p className="col-12 d-flex">
-              <div className="col-6">
+          <div className="">
+            <p className="col-12 d-flex ps-4">
+              <div className="col-6 ">
                 <img
                   src="https://cdn-icons-png.flaticon.com/512/3159/3159436.png"
                   alt=""
@@ -58,7 +54,7 @@ export default function HomeCard(props: any) {
                 <span className="text-center">{props.bathrooms} Banheiros</span>
               </div>
             </p>
-            <p className="col-12 d-flex">
+            <p className="col-12 d-flex ps-4">
               <div className="col-6">
                 <img
                   src="https://cdn-icons-png.flaticon.com/512/7671/7671206.png"
@@ -76,11 +72,22 @@ export default function HomeCard(props: any) {
                 <span className="text-center">{props.parking} Garagens</span>
               </div>
             </p>
+            <p className="col-12 d-flex text-center">
+              <div className="col-12">
+                <img
+                  src="https://cdn-icons-png.flaticon.com/128/535/535239.png"
+                  alt=""
+                  className="icon me-2"
+                />
+                <span className=" text-center">{props.neighborhood} - {props.state}</span>
+              </div>
+
+            </p>
           </div>
         </CardText>
       </CardBody>
       <CardFooter>
-        <p className="col-12 d-flex  align-items-center">
+        <p className="col-12 d-flex mt-3  align-items-center justify-content-center">
           <Button className="col-5 contact-button mx-2"
             onClick={(e) => {
               window.open(

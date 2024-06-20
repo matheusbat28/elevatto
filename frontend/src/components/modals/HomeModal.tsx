@@ -571,7 +571,14 @@ export default function HouseModal(props) {
               // Render display mode elements here
               <div>
                 <h4 className="text-center  mb-3">{item.title}</h4>
-                <p className=" desc-text">{item.description}</p>
+                <p className=" desc-text">
+                  <textarea
+                    value={item.description}
+                    readOnly
+                    className="form-control mb-3 border-0 scrollable"
+                    rows={7}
+                  ></textarea>
+                </p>
                 <div className="bottom-element ">
                   <p className="col-12 d-flex">
                     <div className="col-5 offset-1">
@@ -621,31 +628,39 @@ export default function HouseModal(props) {
           </form>
         </div>
       </Modal.Body>
-      <Modal.Footer>
+      <Modal.Footer className="d-flex justify-content-between align-items-center">
         {mode === "display" ? (
           <>
+            <p className="text-center me-3 money-text">
+              <img
+                src="https://cdn-icons-png.flaticon.com/128/535/535239.png"
+                alt=""
+                className="icon me-2"
+              />
+              {item.neighborhood} - {item.state}
+            </p>
             <p>
               <span className="text-center me-3 money-text">
-                {item.price
+                {parseFloat(item.price)
                   .toLocaleString("pt-BR", {
                     style: "currency",
                     currency: "BRL",
                   })}
               </span>
-            </p>
-            <Button
-              className="contact-button"
-              onClick={(e) => {
-                window.open(
-                  `https://api.whatsapp.com/send?phone=5548998362799&text=Ol%C3%A1%2C%20vi%20o%20seu%20an%C3%BAncio%20no%20site%20Elevatto%20e%20gostaria%20de%20mais%20informa%C3%A7%C3%B5es
+              <Button
+                className="contact-button"
+                onClick={(e) => {
+                  window.open(
+                    `https://api.whatsapp.com/send?phone=5548998362799&text=Ol%C3%A1%2C%20vi%20o%20seu%20an%C3%BAncio%20no%20site%20Elevatto%20e%20gostaria%20de%20mais%20informa%C3%A7%C3%B5es
                 %20sobre%20a%20casa%20${item.title}
                 `,
-                  "_blank"
-                );
-              }}
-            >
-              Entrar em contato
-            </Button>
+                    "_blank"
+                  );
+                }}
+              >
+                Entrar em contato
+              </Button>
+            </p>
           </>
         ) : (
           <>
