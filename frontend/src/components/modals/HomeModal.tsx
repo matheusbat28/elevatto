@@ -256,7 +256,7 @@ export default function HouseModal(props) {
       let cImages = [];
       data.forEach((element) => {
         const newData = element;
-        newData.foto = "https://imobiliariaelevatto.com/" + element.foto;
+        newData.foto = "https://minhamaria.com/" + element.foto;
         images.push(newData.foto);
         cImages.push(newData);
         // transforme o link  em arquivo

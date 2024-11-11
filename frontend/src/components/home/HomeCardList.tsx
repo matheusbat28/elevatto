@@ -26,7 +26,7 @@ export default function HomeCardList(props: any) {
   }, [props.properties]);
 
   function getPhotoById(id) {
-    return "https://imobiliariaelevatto.com/" + photosArray.find(photo => photo.id === id)?.foto
+    return "https://minhamaria.com/" + photosArray.find(photo => photo.id === id)?.foto
   }
 
 
